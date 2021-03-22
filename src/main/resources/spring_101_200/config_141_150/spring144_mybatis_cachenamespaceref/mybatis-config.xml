@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+
+    <properties resource="spring_101_200/config_141_150/spring144_mybatis_cachenamespaceref/db.properties"></properties>
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="com.spring_101_200.test_141_150.test_144_mybatis_cachenamespaceref.User" alias="User"></typeAlias>
+    </typeAliases>
+
+
+
+    <plugins>
+        <plugin interceptor="com.spring_101_200.test_141_150.test_144_mybatis_cachenamespaceref.DataScopeInterceptor">
+            <property name="someProperty" value="100"/>
+        </plugin>
+    </plugins>
+
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="jdbc"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"></property>
+                <property name="username" value="${db.username}"></property>
+                <property name="password" value="${db.pwd}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="spring_101_200/config_141_150/spring144_mybatis_cachenamespaceref/UserMapper.xml"></mapper>
+        <mapper resource="spring_101_200/config_141_150/spring144_mybatis_cachenamespaceref/UserBillMapper.xml"></mapper>
+    </mappers>
+</configuration>
+

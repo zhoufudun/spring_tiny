@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--使用工厂方法-->
+    <bean id="carFactory" class="com.spring_1_100.test_11_20.test15_factory_method.CarFactory"></bean>
+    <bean id="car" factory-bean="carFactory" factory-method="createCar"></bean>
+
+    <!-- 使用静态工厂方法-->
+    <bean id="car2" class="com.spring_1_100.test_11_20.test15_factory_method.CarFactory"
+          factory-method="createStaticCar"></bean>
+
+
+</beans>

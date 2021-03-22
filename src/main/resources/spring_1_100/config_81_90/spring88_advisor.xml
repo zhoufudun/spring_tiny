@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="waiterTarget" class="com.spring_1_100.test_81_90.test88_advisor.Waiter"></bean>
+    <bean id="sellerTarget" class="com.spring_1_100.test_81_90.test88_advisor.Seller"></bean>
+
+    <bean id="greetingAdvice" class="com.spring_1_100.test_81_90.test88_advisor.GreetingBeforeAdvice"></bean>
+    <!--向切面注入一个前置增强-->
+    <bean id="greetingAdvisor" class="com.spring_1_100.test_81_90.test88_advisor.GreetingAdvisor"
+          p:advice-ref="greetingAdvice"></bean>
+
+    <bean id="parent" abstract="true" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="greetingAdvisor"
+          p:proxyTargetClass="true"></bean>
+
+    <bean id="waiter" parent="parent" p:target-ref="waiterTarget"></bean>
+    <bean id="seller" parent="parent" p:target-ref="sellerTarget"></bean>
+
+
+    <bean id="regexpAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor"
+          p:advice-ref="greetingAdvice">
+        <property name="patterns">
+            <list>
+                <value>.*greet.*</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <bean id="waiter1" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="regexpAdvisor"
+          p:target-ref="waiterTarget"
+          p:proxyTargetClass="true"></bean>
+
+
+    <bean id="dynamicAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <property name="pointcut">
+            <bean class="com.spring_1_100.test_81_90.test88_advisor.GreetingDynamicPointcut"></bean>
+        </property>
+        <property name="advice">
+            <bean class="com.spring_1_100.test_81_90.test88_advisor.GreetingBeforeAdvice"></bean>
+        </property>
+    </bean>
+
+    <bean id="waiter2" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="dynamicAdvisor"
+          p:target-ref="waiterTarget"
+          p:proxyTargetClass="true"></bean>
+
+
+    <bean id="controlFlowPointcut" class="org.springframework.aop.support.ControlFlowPointcut">
+        <!--指定流程切点的类-->
+        <constructor-arg type="java.lang.Class"
+                         value="com.spring_1_100.test_81_90.test88_advisor.WaiterDelegate"></constructor-arg>
+        <!--指定流程切点的方法-->
+        <constructor-arg type="java.lang.String" value="service"></constructor-arg>
+    </bean>
+
+    <bean id="controlFlowAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
+          p:pointcut-ref="controlFlowPointcut"
+          p:advice-ref="greetingAdvice">
+    </bean>
+
+    <bean id="waiter3" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="controlFlowAdvisor"
+          p:target-ref="waiterTarget"
+          p:proxyTargetClass="true">
+    </bean>
+
+
+    <bean id="gcp" class="com.spring_1_100.test_81_90.test88_advisor.GreetingComposablePointcut"></bean>
+    <bean id="composableAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
+          p:pointcut="#{gcp.intersectionPointcut}"
+          p:advice-ref="greetingAdvice">
+    </bean>
+
+    <bean id="waiter4" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="composableAdvisor"
+          p:target-ref="waiterTarget"
+          p:proxyTargetClass="true"></bean>
+
+    <!--由于我们只有一个Bean的名称，所以直接使用value属性进行配置，可以通过<list>子元素设定多个Bean名称，或者逗号，空格，分别的方式
+    设定多个Bean的名称
+    optimize : 如果将此属性设置为true,将强制使用CGlib动态代理技术-->
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator"
+          p:beanNames="*er"
+          p:interceptorNames="greetingAdvisor"
+          p:optimize="true"></bean>
+
+</beans>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee"
+		 xmlns:web="http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+		 version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee">
+	<display-name>spring_tiny</display-name>
+
+	<!--使用ContextLoaderListener配置时，需要告诉它Spring配置文件的位置-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring_1_100/config_71_80/spring75_mvc/spring75.xml</param-value>
+	</context-param>
+
+
+
+
+
+	<context-param>
+		<param-name>contextInitializerClasses</param-name>
+		<param-value>com.spring_1_100.test_71_80.test75_springmvc.MyApplicationContextInitializer</param-value>
+	</context-param>
+
+
+
+	<!--Spring MVC的前端控制器-->
+	<!--当DispatcherServlet载入后，它将从一个XML文件中载入Spring的应用上下文，该XML文件的名字取决于<servlet-name></servlet-name>-->
+	<!--这里DispatcherServlet将试图从一个叫做Spring-servlet.xml的文件中载入应用上下文，其默认位于WEB-INF目录下-->
+	<servlet>
+		<servlet-name>spring_tiny</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>spring_tiny</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+
+	<!--配置上下文载入器-->
+	<!--上下文载入器载入除DispatcherServlet载入的配置文件之外 的其他上下文配置文件-->
+	<!--最常用的上下文载入器是一个Servlet监听器，茂名称为ContextLoaderListener-->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+
+
+	<listener>
+		<listener-class>com.spring_1_100.test_71_80.test75_springmvc.MyDataContextListener</listener-class>
+	</listener>
+
+
+
+	<!-- 自己配置描述文件，需要多少个描述文件就配置多少 -->
+	<jsp-config>
+		<!-- 配置c描述文件-对应c标签，这里的taglib-uri对应jsp中引入的uri -->
+		<taglib>
+			<taglib-uri>http://www.codecoord.com</taglib-uri>
+			<taglib-location>/WEB-INF/c.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
+
+
+
+</web-app>

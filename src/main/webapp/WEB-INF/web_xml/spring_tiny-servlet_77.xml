@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+    <!-- 在Spring的httpInvoker服务 -->
+    <bean id="httpInvokerServiceExporter"
+          class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+        <!--需要发布的实现类 -->
+        <property name="service" ref="httpinvokertest" />
+        <property name="serviceInterface" value="com.spring_1_100.test_71_80.test77_spring_httpinvoker.service.HttpInvokerTestI" />
+    </bean>
+
+
+    <!-- 将特定的请求映射到具体的hessianservice -->
+    <bean id="urlMapping1"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/httpinvokertest.service">httpInvokerServiceExporter</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="httpinvokertest" class="com.spring_1_100.test_71_80.test77_spring_httpinvoker.service.HttpInvokerTestImpl"></bean>
+
+
+</beans>
+
+

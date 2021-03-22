@@ -1,0 +1,12 @@
+<user>
+  <id>1</id>
+  <username>张三</username>
+  <loginLog>
+    <ip>172.0.0.1</ip>
+    <loginDate>2020-07-27 20:28:36.575 CST</loginDate>
+  </loginLog>
+  <loginLog>
+    <ip>172.0.0.1</ip>
+    <loginDate>2020-07-27 20:28:36.575 CST</loginDate>
+  </loginLog>
+</user>

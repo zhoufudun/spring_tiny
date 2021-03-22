@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="car5" class="com.spring_1_100.test_11_20.test17_parent_child_constains.Car">
+        <property name="brand" value="红旗 CA72"></property>
+        <property name="maxSpeed" value="500000"></property>
+        <property name="price" value="500000"></property>
+    </bean>
+
+
+    <bean id="car6" class="com.spring_1_100.test_11_20.test17_parent_child_constains.Car">
+        <property name="brand" value="红旗 CA72"></property>
+        <property name="maxSpeed" value="600000"></property>
+        <property name="price" value="600000"></property>
+    </bean>
+
+
+    <bean id="car" class="com.spring_1_100.test_11_20.test17_parent_child_constains.Car">
+        <property name="brand" value="红旗 CA72"></property>
+        <property name="maxSpeed" value="70000"></property>
+        <property name="price" value="70000"></property>
+    </bean>
+
+
+</beans>

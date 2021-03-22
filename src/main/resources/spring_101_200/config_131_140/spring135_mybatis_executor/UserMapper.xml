@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring_101_200.test_131_140.test_135_mybatis_executor.UserMapper">
+
+    <select id="findUserById"  resultType="com.spring_101_200.test_131_140.test_135_mybatis_executor.User" flushCache="true">
+        select id ,real_name as realName from lz_user where id = #{id}
+    </select>
+
+    <update id="update">
+        update lz_user set real_name = '张三' where id = #{id}
+    </update>
+
+    <update id="updateRealName" >
+        update lz_user set real_name = #{realName} where id = #{id}
+    </update>
+
+</mapper>

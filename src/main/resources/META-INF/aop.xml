@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+
+    <aspects>
+        <aspect name="com.spring_1_100.test_91_100.test97_ltw.PreGreetingAspect"  ></aspect>
+    </aspects>
+
+    <weaver options="-showWeaveInfo -XmessageHandlerClass:org.springframework.aop.aspectj.AspectJWeaverMessageHandler">
+        <include within="com.spring_1_100.test_91_100.test97_ltw.*"></include>
+        <dump within="*" beforeandafter="true" ></dump>
+    </weaver>
+
+
+</aspectj>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--生成对象的工厂-->
+    <bean id="stuFactory" class="com.spring_1_100.test_41_50.test50.StuFactory"/>
+
+    <!--动态获取对象-->
+    <bean id="dynamicStu" factory-bean="stuFactory" factory-method="getDynamicStu">
+        <!--传入getDynamicStu方法的参数-->
+        <constructor-arg value="11"/>
+    </bean>
+
+
+</beans>
+
+

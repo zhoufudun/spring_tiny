@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring_101_200.test_141_150.test_146_mybatis_discriminator.UserMapper">
+
+
+
+
+
+    <resultMap type="com.spring_101_200.test_141_150.test_146_mybatis_discriminator.UserBill" id="ordersUserLazyLoading">
+        <!--对订单信息进行映射配置  -->
+        <id column="id" property="id"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="user_id" property="userId"/>
+        <result column="amount" property="amount"/>
+        <result column="type" property="type"/>
+        <discriminator javaType="int" column="is_delete" >
+            <!-- resultType:指定封装的结果类型；不能缺少。-->
+            <case value="1" resultType="com.spring_101_200.test_141_150.test_146_mybatis_discriminator.UserBill">
+                <association property="user" select="findUserById" column="user_id">
+                </association>
+            </case>
+        </discriminator>
+        <collection property=""
+    </resultMap>
+
+
+
+    <!-- 查询订单关联用户 -->
+    <select id="findUserBillLazyLoading"  parameterType="java.lang.Long"  resultMap="ordersUserLazyLoading">
+       select * from lz_user_bill where id = #{id}
+    </select>
+
+    <!-- 根据Id查询用户-->
+    <select id="findUserById" parameterType="java.lang.Long"  resultType="User">
+        select * from lz_user lu   where lu.id =#{id}
+    </select>
+
+    <resultMap id="dateInfoBaseResultMap" type="com.spring_101_200.test_141_150.test_146_mybatis_discriminator.DateInfo">
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+
+
+    <resultMap type="com.spring_101_200.test_141_150.test_146_mybatis_discriminator.UserBillInfo" id="userResult">
+        <!--对订单信息进行映射配置  -->
+        <id column="id" property="id"/>
+        <discriminator javaType="int" column="sex" >
+            <!-- resultType:指定封装的结果类型；不能缺少。-->
+            <case value="1" resultType="com.spring_101_200.test_141_150.test_146_mybatis_discriminator.UserBillInfo">
+                <association property="user" select="findUserById" column="user_id"></association>
+            </case>
+        </discriminator>
+    </resultMap>
+
+
+    <resultMap id="userBillResult" type="com.spring_101_200.test_141_150.test_146_mybatis_discriminator.UserBillInfo">
+        <id property="id" column="id" />
+        <collection property="billList" ofType="com.spring_101_200.test_141_150.test_146_mybatis_discriminator.Bill" >
+            <id property="id" column="id" />
+            <result property="type" column="type"></result>
+            <result property="userId" column="user_id"></result>
+            <result property="amount" column="amount"></result>
+        </collection>
+    </resultMap>
+
+    <resultMap id="userBillMapChoose" type="com.spring_101_200.test_141_150.test_146_mybatis_discriminator.UserBillInfo">
+        <discriminator column="is_delete" javaType="int">
+            <case value="1" resultMap="userBillResult"/>
+            <case value="0" resultMap="userResult"/>
+        </discriminator>
+    </resultMap>
+
+    <select id="selectUserBill"  parameterType="java.lang.Long" resultMap="userBillMapChoose">
+        select * from lz_user lu  left join lz_user_bill lub on lu.id =lub.user_id where lu.id =#{id}
+    </select>
+
+
+</mapper>

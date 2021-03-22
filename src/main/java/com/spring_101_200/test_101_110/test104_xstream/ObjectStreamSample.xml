@@ -1,0 +1,16 @@
+<object-stream>
+  <com.spring__101__200.test__101__110.test104__xstream.User>
+    <userId>1</userId>
+    <username>张三</username>
+    <logs>
+      <com.spring__101__200.test__101__110.test104__xstream.LoginLog>
+        <ip>172.0.0.1</ip>
+        <loginDate>2020-07-27 21:01:51.184 CST</loginDate>
+      </com.spring__101__200.test__101__110.test104__xstream.LoginLog>
+      <com.spring__101__200.test__101__110.test104__xstream.LoginLog>
+        <ip>172.0.0.1</ip>
+        <loginDate>2020-07-27 21:01:51.184 CST</loginDate>
+      </com.spring__101__200.test__101__110.test104__xstream.LoginLog>
+    </logs>
+  </com.spring__101__200.test__101__110.test104__xstream.User>
+</object-stream>

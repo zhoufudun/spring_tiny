@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<user>
+    <logs>
+        <ip>172.0.0.1</ip>
+        <loginDate>2020-07-27T21:41:05.008+08:00</loginDate>
+    </logs>
+    <logs>
+        <ip>172.0.0.1</ip>
+        <loginDate>2020-07-27T21:41:05.008+08:00</loginDate>
+    </logs>
+    <userId>1</userId>
+    <username>张三</username>
+</user>

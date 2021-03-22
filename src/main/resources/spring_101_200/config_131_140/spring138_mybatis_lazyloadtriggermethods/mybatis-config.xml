@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="spring_101_200/config_131_140/spring138_mybatis_lazyloadtriggermethods/db.properties"></properties>
+
+    <settings>
+        <setting name="cacheEnabled" value="false"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+        <!--打开延迟加载的开关,全局性设置懒加载。如果设为‘false’，则所有相关联的都会被初始化加载。默认值 false  -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--将积极加载改为消极加载及按需加载,当设置为‘true’的时候，懒加载的对象可能被任何懒属性全部加载。否则，每个属性都按需加载，默认值 true,,,
+          如果aggressiveLazyLoading=true，只要触发到对象任何的方法，就会立即加载所有属性的加载-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--当逻辑触发lazyLoadTriggerMethods 对应的方法（equals,clone,hashCode,toString）则执行延迟加载  -->
+        <setting name="lazyLoadTriggerMethods" value="hashCode"/>
+    </settings>
+
+    <typeAliases>
+      <package name="com.spring_101_200.test_131_140.test_138_mybatis_lazyloadtriggermethods"/>
+    </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.spring_101_200.test_131_140.test_138_mybatis_lazyloadtriggermethods.DataScopeInterceptor">
+            <property name="someProperty" value="100"/>
+        </plugin>
+    </plugins>
+
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="jdbc"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"></property>
+                <property name="username" value="${db.username}"></property>
+                <property name="password" value="${db.pwd}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="spring_101_200/config_131_140/spring138_mybatis_lazyloadtriggermethods/UserMapper.xml"></mapper>
+    </mappers>
+</configuration>
+

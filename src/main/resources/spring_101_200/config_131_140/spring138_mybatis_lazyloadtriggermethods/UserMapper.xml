@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring_101_200.test_131_140.test_138_mybatis_lazyloadtriggermethods.UserMapper" >
+
+
+    <resultMap id="userBillResult" type="com.spring_101_200.test_131_140.test_138_mybatis_lazyloadtriggermethods.User"  >
+        <id property="id" column="id" />
+        <id property="realName" column="real_name"></id>
+        <collection property="billList"  column="id" select="selectUserBill"  ></collection>
+    </resultMap>
+
+    <select id="selectUserBill" parameterType="long" resultType="com.spring_101_200.test_131_140.test_138_mybatis_lazyloadtriggermethods.UserBill">
+       select * from lz_user_bill where user_id = #{id}
+    </select>
+
+    <!-- 根据Id查询用户，用于测试延迟加载 -->
+    <select id="findUserById" parameterType="java.lang.Long"  resultMap="userBillResult" >
+        select * from lz_user lu   where lu.id =#{id}
+    </select>
+
+
+</mapper>

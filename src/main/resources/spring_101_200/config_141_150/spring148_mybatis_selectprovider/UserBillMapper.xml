@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring_101_200.test_141_150.test_148_mybatis_selectprovider.UserBillMapper" >
+
+
+    <resultMap id="baseMap" type="map">
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="real_name" property="realName"/>
+        <result column="manager_id" property="managerId"/>
+    </resultMap>
+
+<!--
+
+
+    <sql id="Base_Base_Column_List">
+         username AS username, password AS password, real_name AS realName, manager_id AS managerId, sex AS sex, sex_str AS sexStr
+    </sql>
+
+
+    <sql id="Base_Column_List1">
+        id AS id, is_delete AS isDelete, gmt_create AS gmtCreate, gmt_modified AS gmtModified, <include refid="com.spring_101_200.test_141_150.test_148_mybatis_selectprovider.UserBillMapper.Base_Base_Column_List"/>
+    </sql>
+
+    <sql id="Base_Column_List">
+        id AS id, is_delete AS isDelete, gmt_create AS gmtCreate, gmt_modified AS gmtModified,  username AS username, password AS password, real_name AS realName, manager_id AS managerId, sex AS sex, sex_str AS sexStr    </sql>
+
+-->
+
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="greetingAdvice" class="com.spring_1_100.test_81_90.test87_aop.GreetingBeforeAdvice"></bean>
+    <bean id="greetingAfterAdvice" class="com.spring_1_100.test_81_90.test87_aop.GreetingAfterAdvice"></bean>
+    <bean id="greetingAroundAdvice" class="com.spring_1_100.test_81_90.test87_aop.GreetingAroundAdvice"></bean>
+    <bean id="greetingThrowsAdvice" class="com.spring_1_100.test_81_90.test87_aop.GreetingThrowsAdvice"></bean>
+
+    <bean id="target" class="com.spring_1_100.test_81_90.test87_aop.NaiveWaiter"></bean>
+
+    <!--
+        target:代理的目标对象
+        proxyInterfaces:代理所要实现的接口，可以是多个接口，该属性还有一个别名属性interfaces
+        interceptorNames:需要植入目标对象的Bean列表，采用Bean的名称指定，这些Bean必需是实现了org.aopalliance.intercept.MethodInterceptor
+        或者org.springframework.aop.Advisor的Bean，配置中的顺序对应调用的顺序。
+        singleton:返回代理是否是单实例，默认为单实例。
+        optimize:当设置为true 时，强制使用CGLib代理，对于singleton的代理，我们推荐使用CGLib，对于其他的作用域类型的代理，最好使用
+        JDK代理，原因是CGLib创建代理时速度慢，而创建出的代理对象运行时效率较高，而使用JDK代理表现的正好相反，
+        proxyTargetClass:是否对类进行代理 （而不是对接口进行代理），设置为true时，使用CGLib代理
+        interceptorNames 是String[]类型，接受增强Bean的名称而非增强Bean的实例，这是因为，ProxyBeanFactory内部在生成代理类时，需要
+        使用增强Bean的类，而非增强bean的实例，即我不用增强的横切逻辑代码，所以可以说增强是类级别的。对于希望
+
+    -->
+    <bean id="waiter" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:proxyInterfaces="com.spring_1_100.test_81_90.test87_aop.Waiter"
+          p:interceptorNames="greetingAdvice,greetingAfterAdvice,greetingAroundAdvice,greetingThrowsAdvice"
+          p:target-ref="target">
+    </bean>
+
+
+    <bean id="forumServiceTarget" class="com.spring_1_100.test_81_90.test87_aop.ForumServiceImpl"></bean>
+    <bean id="controllablePerformanceMonitor"
+          class="com.spring_1_100.test_81_90.test87_aop.ControllablePerformanceMonitor"></bean>
+
+
+    <bean id="forumService" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interfaces="com.spring_1_100.test_81_90.test87_aop.Monitorable"
+          p:interceptorNames="controllablePerformanceMonitor"
+          p:target-ref="forumServiceTarget"
+          p:proxyTargetClass="true">
+
+    </bean>
+
+
+
+    <bean id="introduceAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <constructor-arg>
+            <bean class="com.spring_1_100.test_81_90.test87_aop.ControllablePerformanceMonitor"></bean>
+        </constructor-arg>
+    </bean>
+
+    <bean id="forumService2" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="introduceAdvisor"
+          p:target-ref="forumServiceTarget"
+          p:proxyTargetClass="true">
+
+    </bean>
+
+
+</beans>

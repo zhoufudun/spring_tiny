@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring_101_200.test_121_130.test_125_mybatis_properties.UserMapper">
+
+    <insert id="insertUser" parameterType="User">
+       INSERT INTO lz_user (username, password, real_name, manager_id) VALUES (#{username},#{password},#{realName},#{managerId})
+    </insert>
+
+
+    <update id="updateById">
+        update lz_user set username= #{username} where id =#{id}
+    </update>
+
+    <select id="getUser" resultType="User" parameterType="java.lang.Long">
+        select * from lz_user where id=#{id}
+    </select>
+
+
+    <select id="getUserList" resultType="com.spring_101_200.test_121_130.test_125_mybatis_properties.User">
+         select * from lz_user where id=#{id}
+    </select>
+
+    <resultMap id="BaseResultMap" type="com.spring_101_200.test_121_130.test_125_mybatis_properties.User">
+        <id column="id" property="id"/>
+
+        <result column="is_delete" property="isDelete"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="real_name" property="realName"/>
+        <result column="manager_id" property="managerId"/>
+        <result column="sex" property="sex"/>
+        <result column="sex_str" property="sexStr"/>
+    </resultMap>
+
+
+    <select id="getUserByMap" resultType="map">
+        select * from lz_user where id=#{id}
+    </select>
+
+
+    <select id="getUserByResultHandler" resultType="com.spring_101_200.test_121_130.test_125_mybatis_properties.User">
+        select * from lz_user limit 5
+    </select>
+
+    <select id="getUserByUser" parameterType="User" resultType="User">
+        select * from lz_user where id = #{id}
+    </select>
+
+    <resultMap id="userBillResult" type="com.spring_101_200.test_121_130.test_125_mybatis_properties.UserInfo" >
+        <id property="id" column="id"/>
+        <collection property="billList" columnPrefix="user"
+                    ofType="com.spring_101_200.test_121_130.test_125_mybatis_properties.UserBill">
+            <id property="id" column="id"/>
+            <result property="type" column="type"></result>
+            <result property="userId" column="user_id"></result>
+            <result property="amount" column="amount"></result>
+        </collection>
+    </resultMap>
+
+
+    <resultMap id="billResultMap" type="com.spring_101_200.test_121_130.test_125_mybatis_properties.UserBill">
+        <id property="id" column="id"/>
+        <result property="type" column="type"></result>
+        <result property="userId" column="user_id"></result>
+        <result property="amount" column="amount"></result>
+    </resultMap>
+
+
+    <resultMap id="userCompexBillResult" type="com.spring_101_200.test_121_130.test_125_mybatis_properties.UserInfo">
+        <id property="id" column="id"/>
+        <collection property="billList" ofType="com.spring_101_200.test_121_130.test_125_mybatis_properties.UserBill"
+                    resultMap="billResultMap">
+
+        </collection>
+    </resultMap>
+
+
+    <!-- 根据Id查询用户，用于测试延迟加载 -->
+    <select id="findUserCompexById" parameterType="java.lang.Long" resultMap="userCompexBillResult">
+        select * from lz_user lu  left join lz_user_bill lub on lu.id =lub.user_id where lu.id =#{id}
+    </select>
+
+
+    <!-- 根据Id查询用户，用于测试延迟加载 -->
+    <select id="findUserById" parameterType="java.lang.Long" resultMap="userBillResult">
+        select * from lz_user lu  left join lz_user_bill lub on lu.id =lub.user_id where lu.id =#{id}
+    </select>
+
+
+    <select id="selectUserBill" parameterType="long"
+            resultType="com.spring_101_200.test_121_130.test_125_mybatis_properties.UserBill">
+       select * from lz_user_bill where user_id = #{id}
+    </select>
+
+
+    <resultMap type="com.spring_101_200.test_121_130.test_125_mybatis_properties.UserBill" id="ordersUserLazyLoading">
+        <!--对订单信息进行映射配置  -->
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="amount" property="amount"/>
+        <result column="type" property="type"/>
+        <result column="name" property="name"/>
+        <association property="user" javaType="com.spring_101_200.test_121_130.test_125_mybatis_properties.User"
+                     select="getUserById" column="{id=user_id,username=name}"/>
+    </resultMap>
+
+
+    <!-- 查询订单关联用户，用户信息延迟加载 -->
+    <select id="findUserBillLazyLoading" parameterType="java.lang.Long" resultMap="ordersUserLazyLoading">
+       select * ,'zhangsan' as name from  lz_user_bill where id = #{id}
+    </select>
+
+    <!-- 根据Id查询用户，用于测试延迟加载 -->
+    <select id="getUserById" parameterType="com.spring_101_200.test_121_130.test_125_mybatis_properties.ParamUser"
+            resultType="com.spring_101_200.test_121_130.test_125_mybatis_properties.User">
+        select * from lz_user lu   where lu.id =#{id} and username=#{username}
+    </select>
+
+
+
+    <!--
+
+    DELIMITER $$
+    CREATE PROCEDURE getBlogsAndAuthors(IN bill_id INT, IN user_id INT)
+
+    BEGIN
+
+    SELECT * FROM lz_user_bill WHERE ID = bill_id;
+    SELECT * FROM lz_user WHERE ID = user_id;
+    END $$
+
+    -->
+
+
+
+    <resultMap type="com.spring_101_200.test_121_130.test_125_mybatis_properties.UserBill" id="userbillMaps">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="amount" property="amount"/>
+        <result column="type" property="type"/>
+        <result column="name" property="name"/>
+        <association property="user" javaType="com.spring_101_200.test_121_130.test_125_mybatis_properties.User"
+                     column="user_id" resultSet="users" foreignColumn="id">
+            <id property="id" column="id"></id>
+            <result column="is_delete" property="isDelete"/>
+            <result column="gmt_create" property="gmtCreate"/>
+            <result column="gmt_modified" property="gmtModified"/>
+            <result column="username" property="username"/>
+            <result column="password" property="password"/>
+            <result column="real_name" property="realName"/>
+        </association>
+    </resultMap>
+
+    <select id="selectBillInfo" resultSets="bills,users" resultMap="userbillMaps" statementType="CALLABLE" >
+        {call getBlogsAndAuthors(#{billId,jdbcType=INTEGER,mode=IN},#{userId,jdbcType=INTEGER,mode=IN})}
+    </select>
+
+</mapper>

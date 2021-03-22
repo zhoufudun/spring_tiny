@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--我们通过 depends-on 属性，将 sysInit 指定为 manager  前置依赖的 bean , 这样就可以保证 manager bean 在实例化并运行时
+    所引用的系统参数是最新的设置的而非 SystemSettings 类中的默认值，如果前置依赖于多个 bean , 则可以通过逗号，空隔或者分号
+    创建 bean 的名称-->
+    <bean id="manager" class="com.spring_1_100.test_21_30.test28_depends_on.CacheManager" depends-on="sysInit">
+
+    </bean>
+
+
+    <bean id="sysInit" class="com.spring_1_100.test_21_30.test28_depends_on.SysInit"></bean>
+
+</beans>

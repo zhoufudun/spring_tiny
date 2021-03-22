@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="car" class="com.spring_1_100.test_11_20.test12_constructor_arg.Car">
+        <constructor-arg>
+            <value>红旗 CA72</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>中国一汽</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>240</value>
+        </constructor-arg>
+    </bean>
+
+
+    <bean id="office" class="com.spring_1_100.test_11_20.test12_constructor_arg.Office"></bean>
+
+    <bean id="boss" class="com.spring_1_100.test_11_20.test12_constructor_arg.Boss">
+        <constructor-arg>
+            <value>张三</value>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="car"></ref>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="office"></ref>
+        </constructor-arg>
+    </bean>
+
+</beans>

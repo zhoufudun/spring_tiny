@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+
+
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.spring_101_200.test_101_110.test105_conversion_string_to_user.StringToUserConverter"></bean>
+            </list>
+        </property>
+    </bean>
+
+
+    <bean id="person" class="com.spring_101_200.test_101_110.test105_conversion_string_to_user.Person">
+        <property name="user" value="zhangsan:123456:23"></property>
+    </bean>
+
+</beans>

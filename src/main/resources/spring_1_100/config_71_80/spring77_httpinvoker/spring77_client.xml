@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="remoteService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+        <property name="serviceUrl" value="http://localhost:8081/httpinvokertest.service"></property>
+        <property name="serviceInterface" value="com.spring_1_100.test_71_80.test77_spring_httpinvoker.service.HttpInvokerTestI"></property>
+
+    </bean>
+
+</beans>
+
+

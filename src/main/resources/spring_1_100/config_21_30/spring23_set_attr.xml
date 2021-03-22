@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+
+    <!--    abstract="true" 写不定都一样 -->
+    <bean id="parentBoss" class="com.spring_1_100.test_21_30.test23_set_attr.Boss" >
+        <property name="favorites">
+            <set>
+                <value>年报</value>
+                <value>赛车</value>
+                <value>高尔夫</value>
+            </set>
+        </property>
+
+        <property name="favoriteSet1" ref="favoriteSet1"></property>
+    </bean>
+
+
+    <util:set id="favoriteSet1" >
+        <value>看报</value>
+        <value>赛车</value>
+        <value>高尔夫</value>
+    </util:set>
+
+
+    <bean id="childBoss" class="com.spring_1_100.test_21_30.test23_set_attr.Boss" parent="parentBoss">
+        <property name="favorites">
+            <set merge="true">
+                <value>111</value>
+                <value>222</value>
+                <value>333</value>
+            </set>
+        </property>
+    </bean>
+
+
+    <!--    abstract="true" 写不定都一样 -->
+    <bean id="parentBossSet" class="com.spring_1_100.test_21_30.test23_set_attr.Boss" >
+        <property name="setfavorites">
+            <set>
+                <value>年报</value>
+                <value>赛车</value>
+                <value>高尔夫</value>
+            </set>
+        </property>
+    </bean>
+
+
+
+    <bean id="childBossSet" class="com.spring_1_100.test_21_30.test23_set_attr.Boss" parent="parentBossSet">
+        <property name="setfavorites">
+            <set merge="true">
+                <value>111</value>
+                <value>222</value>
+                <value>333</value>
+            </set>
+        </property>
+    </bean>
+
+
+</beans>

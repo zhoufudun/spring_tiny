@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="boss" class="com.spring_1_100.test_11_20.test14_set_cycle_reference.Boss">
+        <property name="car" ref="car"></property>
+    </bean>
+    <bean id="car" class="com.spring_1_100.test_11_20.test14_set_cycle_reference.Car">
+        <property name="boss" ref="boss"></property>
+    </bean>
+
+
+    <!--
+        <bean id="boss" class="com.spring_1_100.test_11_20.test14_set_cycle_reference.Boss" scope="prototype">
+            <property name="car" ref="car"></property>
+        </bean>
+        <bean id="car" class="com.spring_1_100.test_11_20.test14_set_cycle_reference.Car" scope="prototype">
+            <property name="boss" ref="boss"></property>
+        </bean>-->
+</beans>

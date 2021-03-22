@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/pple_test?characterEncoding=utf-8"></property>
+        <property name="username" value="ldd_biz"></property>
+        <property name="password" value="pwd"></property>
+        <property name="initialSize" value="1"></property>
+        <property name="maxIdle" value="2"></property>
+        <property name="minIdle" value="1"></property>
+    </bean>
+
+    <bean id="userService" class="com.spring_1_100.test_61_70.test69_database.UserServiceImpl">
+        <property name="jdbcTemplate" ref="dataSource"></property>
+    </bean>
+
+
+</beans>
+
+

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring_101_200.test_141_150.test_141_mybatis_usegeneratedkeys_keyproperty.UserMapper">
+
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" >
+        insert into lz_user(
+        <if test="username != null">username, </if>
+        <if test="password != null">password, </if>
+        <if test="realName != null">real_name, </if>
+        <if test="managerId != null">manager_id, </if>
+        is_delete,
+        gmt_create,
+        gmt_modified
+        )values(
+        <if test="username != null">#{ username}, </if>
+        <if test="password != null">#{ password}, </if>
+        <if test="realName != null">#{ realName}, </if>
+        <if test="managerId != null">#{ managerId}, </if>
+        0,
+        now(),
+        now()
+        )
+    </insert>
+
+
+
+    <insert id="insertUserIdAddDouble" parameterType="User" useGeneratedKeys="true" keyProperty="id" >
+        <!--selectKey  会将 SELECT select if(max(id) is null ,1 ,max(id) + 2 ) as newId from lz_user 的结果放入到传入的model的主键里面，
+               keyProperty 对应的model中的主键的属性名，这里是 user 中的id，因为它跟数据库的主键对应
+               order AFTER 表示 select if(max(id) is null ,1 ,max(id) + 2 ) as newId from lz_user 在insert执行之后执行,多用与自增主键，
+                     BEFORE 表示select if(max(id) is null ,1 ,max(id) + 2 ) as newId from lz_user 在insert执行之前执行，这样的话就拿不到主键了，
+                           这种适合那种主键不是自增的类型
+               resultType 主键类型 -->
+
+
+        insert into lz_user(
+        <if test="id != null">id, </if>
+        <if test="username != null">username, </if>
+        <if test="password != null">password, </if>
+        <if test="realName != null">real_name, </if>
+        <if test="managerId != null">manager_id, </if>
+        is_delete,
+        gmt_create,
+        gmt_modified
+        )values(
+        <if test="id != null">#{ id}, </if>
+        <if test="username != null">#{ username}, </if>
+        <if test="password != null">#{ password}, </if>
+        <if test="realName != null">#{ realName}, </if>
+        <if test="managerId != null">#{ managerId}, </if>
+        0,
+        now(),
+        now()
+        )
+    </insert>
+
+
+    <insert id="insertUserNew" parameterType="User" useGeneratedKeys="true" keyProperty="id" >
+        <selectKey keyProperty="id,username" keyColumn="id,userName"
+                   resultType="com.spring_101_200.test_141_150.test_141_mybatis_usegeneratedkeys_keyproperty.UserSelectKey" order="BEFORE">
+            select if(max(id) is null ,1 ,max(id) + 2 ) as id,username  as userName from lz_user
+        </selectKey>
+        insert into lz_user(
+            <if test="id != null">id, </if>
+            <if test="username != null">username, </if>
+            <if test="password != null">password, </if>
+            <if test="realName != null">real_name, </if>
+            <if test="managerId != null">manager_id, </if>
+            is_delete,
+            gmt_create,
+            gmt_modified
+        )values(
+            <if test="id != null">#{ id}, </if>
+            <if test="username != null">#{ username}, </if>
+            <if test="password != null">#{ password}, </if>
+            <if test="realName != null">#{ realName}, </if>
+            <if test="managerId != null">#{ managerId}, </if>
+            0,
+            now(),
+            now()
+        )
+    </insert>
+
+
+
+    <update id="updateUser" parameterType="User" >
+        update
+        lz_user
+        <trim prefix="set" suffixOverrides="," >
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="gmtCreate != null">gmt_create = #{gmtCreate},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="managerId != null">manager_id = #{managerId},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="sexStr != null">sex_str = #{sexStr}</if>
+        </trim>
+        ,gmt_modified = now()
+        where id = #{id}
+    </update>
+
+
+
+    <update id="updateUserById" parameterType="User" >
+        update
+        lz_user
+        <set>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="gmtCreate != null">gmt_create = #{gmtCreate},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="managerId != null">manager_id = #{managerId},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="sexStr != null">sex_str = #{sexStr}</if>
+        </set>
+        ,gmt_modified = now()
+        where id = #{id}
+    </update>
+
+</mapper>

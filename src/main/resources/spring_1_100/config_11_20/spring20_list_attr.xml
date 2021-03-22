@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+    <bean id="boss" class="com.spring_1_100.test_11_20.test20_list_attr.Boss">
+        <property name="favorites">
+            <list>
+                <value>年报</value>
+                <value>赛车</value>
+                <value>高尔夫</value>
+            </list>
+        </property>
+        <property name="favoriteList1" ref="favoriteList1"></property>
+
+    </bean>
+
+
+    <util:list id="favoriteList1" >
+        <value>看报</value>
+        <value>saiche</value>
+        <value>gaoerfu</value>
+    </util:list>
+
+
+
+    <!--    abstract="true" 写不定都一样 -->
+    <bean id="parentBoss" class="com.spring_1_100.test_11_20.test20_list_attr.Boss" >
+        <property name="favorites">
+            <list>
+                <value>年报</value>
+                <value>赛车</value>
+                <value>高尔夫</value>
+            </list>
+        </property>
+    </bean>
+
+
+
+    <bean id="childBoss" class="com.spring_1_100.test_11_20.test20_list_attr.Boss" parent="parentBoss">
+        <property name="favorites">
+            <list merge="true">
+                <value>111</value>
+                <value>222</value>
+                <value>333</value>
+            </list>
+        </property>
+    </bean>
+
+
+
+
+
+</beans>

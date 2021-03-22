@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- 未采用 p 命名空间，<bean> 使用<property>子元素配置 bean 的属性， 采用 p 命名空间后，采用<bean> 的元素
+    属性配置 Bean 的属性，对于字面值属性，其格式为 ：
+    <p:<属性名> = "xxx" -->
+    <bean id="car" class="com.spring_1_100.test_21_30.test24_p_namespace.Car"
+          p:brand="红旗&amp;CA72"
+          p:maxSpeed="200"></bean>
+
+    <!--
+   对于引用对象的属性，其格式为
+   p:<属性名>_ref="xxx"  正是由于p 命名空间的属性名是可变的，所以 p 命名空间没有对应的 Schema 定义文件，也就无须在 xsi:schemaLocation
+    中为 p 命名空间指定 Schema 定义文件-->
+    <bean id="boss" class="com.spring_1_100.test_21_30.test24_p_namespace.Boss"
+          p:car-ref="car">
+    </bean>
+
+</beans>

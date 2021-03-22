@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>../../database.properties</value>
+        </property>
+    </bean>
+
+    <import resource="spring49-student.xml"></import>
+
+    <bean id="teacher" class="com.spring_1_100.test_41_50.test49.Teacher">
+        <property name="userName" value="${jdbc.username}" ></property>
+    </bean>
+
+
+</beans>
+
+

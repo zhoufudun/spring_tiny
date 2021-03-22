@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/pple_test?characterEncoding=utf-8"></property>
+        <property name="username" value="ldd_biz"></property>
+        <property name="password" value="Hello1234"></property>
+        <property name="initialSize" value="1"></property>
+        <property name="maxIdle" value="2"></property>
+        <property name="minIdle" value="1"></property>
+    </bean>
+
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:spring_1_100/config_71_80/spring71_mybatis_origin/spring-mybatis-config.xml"></property>
+        <property name="dataSource" ref="dataSource"></property>
+
+    </bean>
+
+
+
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.spring_1_100.test_71_80.test71_spring_mybatis.UserMapper"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+
+
+</beans>
+
+

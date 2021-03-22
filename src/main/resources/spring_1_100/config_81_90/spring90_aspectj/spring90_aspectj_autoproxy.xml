@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.spring_1_100.test_81_90.test90_aspectj"></context:component-scan>
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+    <!--目标Bean-->
+    <bean id="waiter" class="com.spring_1_100.test_81_90.test90_aspectj.NaiveWaiter"></bean>
+    <!--使用了AspectJ注解切面类-->
+    <bean class="com.spring_1_100.test_81_90.test90_aspectj.PreGreetingAspect"></bean>
+</beans>

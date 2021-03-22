@@ -1,0 +1,33 @@
+在介绍增强时，我们可能注意到一个问题，增强被织入的目标类的所有方法，假设我们希望有选择的织入到目标类某些特定的方法中，就需要使用切入点进行
+目标连接点的定位了，描述连接点进行AOP编程最主要的基本信息，为了突出强调这一点，我们再次给出Spring Aop 如何定位连接点：
+增强提供了连接点方位信息，如织入到方法前面，后面，而切点十点描述织入到哪些类的哪些方法上。
+Spring通过org.springframework.aop.Pointcut接口描述切点，Pointcut由classFilter和MethodMatcher构成，它通过ClassFilter
+定位到某些特定的类上，通过Me†˙odMatcher定位到某些方法上，这样Pointcut就拥有了描述某些类和某些特定方法的能力，我们可以简单的
+用SQL复合查询条件来理解Pointcut的功用，Pointcut关系图如图6-6所示。
+ClassFilter只定义了一个方法matches(Class clazz),其参数代表一个被检测的类，该方法判别被检测的类是否匹配过滤条件。
+Spring支持两种方法匹配器，静态方法匹配器和动态方法匹配器，所谓静态方法匹配器它仅对方法名签名，包括方法名和入参类型顺序进行匹配。而动态方法
+匹配器会在运行期检查方法入参值，静态匹配仅判别一次，而动态匹配因为每次调用方法入参都可能不一样，所以每次调用方法者必须判断，因此，动态匹配
+对性能的影响很大，一般情况下，动态匹配不常使用，方法匹配器的类型由isRuntime()返回值决定，返回false ，表示是静态方法匹配，返回true是动态方法
+匹配器。
+在Spring2.0中还引入了注解切点和表达式切点，前者通过JDK 5.0 的注解定义切点，而后者通过字符串表达式定义切点，两者都使用了AspectJ的切点
+表达式语言。
+静态方法切点，org.springframework.aop.support.StaticMethodMatcherPointcut是静态方法切点的抽象基类，默认情况下它匹配所有的类，
+StaticMethodMatcherPointcut包括两个主要的子类，分别NameMatcherMethodPointcut和AbstractRegexpMethodPointcut，前者提供了简单的
+字符串匹配方法签名，而后者使用正则表达式匹配方法签名。
+动态方法切点：org.springframework.aop.support.DynamicMethodMatcherPointcut是动态方法切点的抽象基类，默认情况下它匹配所有的类，
+DynamicMethodMatcherPointcut类在Spring 2.0 己经过时，可以使用DefaultPointcutAdvisor和DynamicMethodMatcherPointcut动态方法
+匹配器替代。
+注解切点：org.springframework.aop.support.annotation.AnnotationMatchingPointcut实现类表示注解切点，使用AnnotationMatchingPointcut
+支持在Bean中直接通过jdk5.0注解标签定义切点 。
+表达式切点 ：org.springframework.aop.support.ExpressionPointcut接口主要是为了支持AspectJ切点表达式语法而定义的接口。
+流程切点：org.springframework.aop.support.ControlFlowPointcut实现类表示控制流程切点，ControlFlowPointcut是一种特殊的切点，它根据程序
+执行堆栈信息查看目标方法是否由某一个方法拉卡拉或者间接发起调用，以此判断是否为匹配连接点。
+复合切点：org.springframework.aop.support.ComposablePointcut实现类是为了创建多个切点而提供的方便操作类，它所有的方法都返回ComposablePointcut
+类，这样，我们就可以使用链接表达式对切点进行操作，如Pointcut pc = new ComposablePointcut().union(classFilter).intersection(methodMatcher).intersection(pointcut);
+切面可以分成三类，一般切面，切点切面和引介切面，我们可以通过Spring所定义的切面接口清楚的了解切面的分类。
+Advisor：代表一般切面，它仅包含一个Advise，我们说过，因为Advise包含了横切代码和连接点信息，所以，Advise本身就是一个简单的切面，只不过
+它代表的横切的连接点是所有目标类的所有方法，因为这个横切面太宽泛，所以一般不会直接使用。
+PointcutAdvisor:代表具有切点的切面，它包含Advice和Pointcut两个类，这样，我们就可以通过类，方法名以及方法方位等信息灵活的定义切面的连接
+点，提供具有适用性的切面。
+IntroductionAdvisor:代表引介切面，我们介绍了引介增强类型，引介切面是对引介增强的特殊的切面，它应用于类层面上，所以引介切点使用ClassFilter进行定义。
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+
+    <!--服务端-->
+    <bean id="helloRMI" class="com.spring_1_100.test_71_80.test76_spring_rmi.service.HelloRMIServiceImpl"></bean>
+
+    <!--服务类-->
+    <bean id="myRMI" class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <!--服务类-->
+        <property name="service"  ref="helloRMI"></property>
+        <!--服务名-->
+        <property name="serviceName" value="helloRMI"></property>
+        <!--服务接口-->
+        <property name="serviceInterface" value="com.spring_1_100.test_71_80.test76_spring_rmi.service.HelloRMIService"></property>
+        <!--服务端-->
+        <property name="registryPort" value="9999"></property>
+        <!--其他的属性自己查看，org.springframework.remoting.RMI.RMIServiceExporter 的类，就知道支持的属性了-->
+    </bean>
+
+
+</beans>
+
+

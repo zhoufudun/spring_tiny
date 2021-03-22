@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置自动注册属性编辑器customEditorConfigurer, 我们定义了用于注册自定义属性编辑器CustomEditorConfigurer，Spring 容器通过反射机制自动调用这个
+    Bean，CustomEditorConfigurer通过一个Map 属性定义需要自动注册的自定义属性编辑器。-->
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <!--为我们的Car类型我指定了对应的属性编辑器CustomerCarEditor，注意键是属性类型，而值是对应的属性编辑器的Bean 而不是属性编辑器的类名-->
+                <entry key="com.spring_1_100.test_81_90.test83_property_editor.Car"
+                       value="com.spring_1_100.test_81_90.test83_property_editor.CustomCarEditor"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="boss" class="com.spring_1_100.test_81_90.test83_property_editor.Boss">
+        <property name="name" value="John"></property>
+        <!--我们原来通过一个<bean> 元素标签配置好car Bean ，然后在boss 的<bean> 中通过ref 引用car Bean ,但是现在我们直接通过value
+        为car 属性提供配置，BeanWrapper 在设置boss 的car 属性时，它将检索自定义属性编辑器注册表，当发现Car 属性类型拥有对应的属性编辑器
+        CustomerCarEditor时，就会利用CustomCarEditor将"红旗CA72,200,2000.00""转换成Car 对象。-->
+        <property name="car" value="红旗CA72,200,2000.00"></property>
+    </bean>
+
+</beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+
+    <bean id="student" class="com.spring_1_100.test_41_50.test46.Student"></bean>
+    <bean id="teacher" class="com.spring_1_100.test_41_50.test46.Teacher"></bean>
+
+    <bean id="myPerson" class="com.spring_1_100.test_41_50.test46.MyPerson">
+        <qualifier type="com.spring_1_100.test_41_50.test46.Person" value="student">
+        </qualifier>
+    </bean>
+
+</beans>
+
+

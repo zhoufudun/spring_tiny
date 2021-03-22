@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+    <bean id="boss" class="com.spring_1_100.test_21_30.test21_map_attr.Boss">
+        <property name="jobs">
+            <map>
+                <entry>
+                    <key><value>AM</value></key>
+                    <value>会见客户</value>
+                </entry>
+                <entry>
+                    <key><value>PM</value></key>
+                    <value>公司内部会议</value>
+                </entry>
+            </map>
+        </property>
+        <property name="emails1" ref="emails1"></property>
+    </bean>
+
+
+
+    <bean id="boss2" class="com.spring_1_100.test_21_30.test21_map_attr.Boss">
+        <property name="jobTimes">
+            <map>
+                <entry>
+                    <key><value>xiaoming</value></key>
+                    <value>2</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+
+
+
+    <util:map id="emails1">
+        <entry key="AM" value="会见客户"></entry>
+        <entry key="PM" value="gongshineibu"></entry>
+    </util:map>
+</beans>

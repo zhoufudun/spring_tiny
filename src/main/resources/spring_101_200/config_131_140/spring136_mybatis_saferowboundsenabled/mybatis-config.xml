@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+
+    <properties resource="spring_101_200/config_131_140/spring136_mybatis_saferowboundsenabled/db.properties"></properties>
+
+    <settings>
+        <setting name="safeRowBoundsEnabled" value="true"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+
+    <typeAliases>
+      <package name="com.spring_101_200.test_131_140.test_136_mybatis_saferowboundsenabled"/>
+    </typeAliases>
+
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="jdbc"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"></property>
+                <property name="username" value="${db.username}"></property>
+                <property name="password" value="${db.pwd}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="spring_101_200/config_131_140/spring136_mybatis_saferowboundsenabled/UserMapper.xml"></mapper>
+    </mappers>
+</configuration>
+

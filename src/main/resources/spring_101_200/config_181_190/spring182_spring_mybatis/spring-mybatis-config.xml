@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="cacheEnabled" value="false"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="defaultExecutorType" value="REUSE"/>
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="com.spring_101_200.test_181_190.test_182_tx_out_required_inner_required.User" alias="User"></typeAlias>
+    </typeAliases>
+
+
+
+
+    <plugins>
+        <plugin interceptor="com.spring_101_200.test_181_190.test_182_tx_out_required_inner_required.DataLogInterceptor">
+            <property name="someProperty" value="100"/>
+        </plugin>
+
+
+        <plugin interceptor="com.spring_101_200.test_181_190.test_182_tx_out_required_inner_required.QueryScopeInterceptor">
+            <property name="someProperty" value="100"/>
+        </plugin>
+
+    </plugins>
+
+
+
+    <mappers>
+		<mapper resource="spring_101_200/config_181_190/spring182_spring_mybatis/UserMapper.xml"></mapper>
+    </mappers>
+</configuration>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring_101_200.test_131_140.test_133_mybatis_lazyloadingenabled_aggressivelazyloading.UserMapper">
+
+
+    <resultMap type="com.spring_101_200.test_131_140.test_133_mybatis_lazyloadingenabled_aggressivelazyloading.UserBill" id="ordersUserLazyLoading">
+        <!--对订单信息进行映射配置  -->
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="amount" property="amount"/>
+        <result column="type" property="type"/>
+        <association property="user" javaType="com.spring_101_200.test_131_140.test_133_mybatis_lazyloadingenabled_aggressivelazyloading.User" select="findUserById" column="user_id"/>
+    </resultMap>
+
+
+    <!-- 查询订单关联用户，用户信息延迟加载 -->
+    <select id="findUserBillLazyLoading"  parameterType="java.lang.Long"  resultMap="ordersUserLazyLoading">
+       select * from lz_user_bill where id = #{id}
+    </select>
+
+    <!-- 根据Id查询用户，用于测试延迟加载 -->
+    <select id="findUserById" parameterType="java.lang.Long"  resultMap="userBillResult">
+        select * from lz_user lu   where lu.id =#{id}
+    </select>
+
+
+    <resultMap id="userBillResult" type="com.spring_101_200.test_131_140.test_133_mybatis_lazyloadingenabled_aggressivelazyloading.User">
+        <id property="id" column="id" />
+        <id property="realName" column="real_name"></id>
+        <collection property="billList"  column="id" select="selectUserBill"  >
+
+        </collection>
+    </resultMap>
+
+    <select id="selectUserBill" parameterType="long" resultType="com.spring_101_200.test_131_140.test_133_mybatis_lazyloadingenabled_aggressivelazyloading.UserBill">
+       select * from lz_user_bill where user_id = #{id}
+    </select>
+
+
+
+</mapper>

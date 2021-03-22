@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+    <bean id="car" class="com.spring_1_100.test_11_20.test17_parent_child_constains.Car">
+        <property name="brand" value="红旗 CA72"></property>
+        <property name="maxSpeed" value="1000"></property>
+        <property name="price" value="1000"></property>
+    </bean>
+
+
+    <!-- 引用父容器中的 bean ，如<ref parent="car" /> 的配置说明 car 的 bean 是父容器中的 bean -->
+    <bean id="boss1" class="com.spring_1_100.test_11_20.test17_parent_child_constains.Boss">
+        <property name="car" >
+            <ref parent="car"></ref>
+        </property>
+    </bean>
+
+    <!-- 通过该属性可以引用同一容器或父容器的 bean,这里是最常见的形式 -->
+    <bean id="boss2" class="com.spring_1_100.test_11_20.test17_parent_child_constains.Boss">
+        <property name="car" >
+            <ref bean="car"></ref>
+        </property>
+    </bean>
+
+    <!-- 通过该属性可以引用同一容器或父容器的 bean,这里是最常见的形式 ,先在本容器中寻找，如果本容器存在，优先选择本容器中的bean， 当本
+    容器不存在时，到父容器中寻找 -->
+    <bean id="boss3" class="com.spring_1_100.test_11_20.test17_parent_child_constains.Boss">
+        <property name="car" >
+            <ref bean="car2"></ref>
+        </property>
+    </bean>
+
+
+    <!-- 通过该属性可以引用同一容器或父容器的 bean,这里是最常见的形式 ,先在本容器中寻找，如果本容器存在，优先选择本容器中的bean， 当本
+容器不存在时，到父容器中寻找, 如果父容器中还是找不到，继续到父亲的父亲容器中寻找-->
+    <bean id="boss4" class="com.spring_1_100.test_11_20.test17_parent_child_constains.Boss">
+        <property name="car" >
+            <ref bean="car4"></ref>
+        </property>
+    </bean>
+
+    <!-- 引用父容器中的 bean ，如<ref parent="car" /> 的配置说明 car 的 bean 是父容器中的 bean ,递归寻找 -->
+    <bean id="boss5" class="com.spring_1_100.test_11_20.test17_parent_child_constains.Boss">
+        <property name="car" >
+            <ref parent="car5"></ref>
+        </property>
+    </bean>
+
+
+    <!-- 递归寻找，如果本容器有了，那就在本容器中寻找，如果本容器不存在，就一直递归查找父容器，直到查找到为止 -->
+    <bean id="boss6" class="com.spring_1_100.test_11_20.test17_parent_child_constains.Boss">
+        <property name="car" >
+            <ref bean="car6"></ref>
+        </property>
+    </bean>
+
+
+
+</beans>

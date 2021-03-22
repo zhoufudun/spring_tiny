@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="cacheEnabled" value="false"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="defaultExecutorType" value="REUSE"/>
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="com.spring_1_100.test_71_80.test72_mybatis_scan.User" alias="User"></typeAlias>
+    </typeAliases>
+
+
+    <mappers>
+		<mapper resource="spring_1_100/config_71_80/spring72/UserMapper.xml"></mapper>
+    </mappers>
+</configuration>

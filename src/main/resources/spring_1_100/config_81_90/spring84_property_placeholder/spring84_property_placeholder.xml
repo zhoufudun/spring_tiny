@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+    <context:component-scan base-package="com.spring_1_100.test_81_90.test84_property_placeholder"></context:component-scan>
+
+<!--
+    <context:property-placeholder  location="classpath:spring_1_100/config_81_90/spring84_property_placeholder/jdbc.properties"
+                                   file-encoding="utf-8"></context:property-placeholder>
+-->
+
+    <bean class="com.spring_1_100.test_81_90.test84_property_placeholder.EncryptPropertyPlaceholderConfigurer" p:fileEncoding="utf-8">
+        <property name="locations">
+            <list>
+                <value>spring_1_100/config_81_90/spring84_property_placeholder/jdbc.properties</value>
+                <value>spring_1_100/config_81_90/spring84_property_placeholder/redis.properties</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <bean id="sysConfig" class="com.spring_1_100.test_81_90.test84_property_placeholder.SystemConfig" init-method="initFromDB"></bean>
+
+</beans>

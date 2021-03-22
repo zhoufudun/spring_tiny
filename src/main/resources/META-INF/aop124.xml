@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aspectj>
+
+
+
+
+
+    <aspects>
+        <aspect name="com.spring_101_200.test_121_130.test_124_ltw.AspectJTest"></aspect>
+    </aspects>
+
+    <weaver options="-showWeaveInfo -XmessageHandlerClass:org.springframework.aop.aspectj.AspectJWeaverMessageHandler">
+        <include within="com.spring_101_200.test_121_130.test_124_ltw.*"></include>
+    </weaver>
+
+</aspectj>

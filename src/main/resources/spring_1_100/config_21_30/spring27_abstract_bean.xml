@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+    <!--所以声明为 abstract = "true" 表示这个<bean> 不实例化为一个对应的 bean , 在代码清单中，如果用户没有指定
+    abstract="true "， Spring ioc 容器将实例化一个名为 abstractCar 的 bean
+    -->
+    <bean id="abstract" class="com.spring_1_100.test_21_30.test27_abstract_bean.Car"
+          p:maxSpeed="300" abstract="true"></bean>
+
+    <bean id="abstractCar" class="com.spring_1_100.test_21_30.test27_abstract_bean.Car"
+    p:brand="红旗 CA72" abstract="true" parent="abstract"></bean>
+
+    <bean id="car4" p:color="黑色" parent="abstractCar"></bean>
+
+</beans>
