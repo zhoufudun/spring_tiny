@@ -50,17 +50,17 @@ public class Test69 {
             //注册加载jdbc驱动
             Class.forName("com.mysql.jdbc.Driver");
             //打开连接
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pple_test?characterEncoding=utf-8", "ldd_biz", "pwd");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/lz_test?characterEncoding=utf-8", "ldd_biz", "Hello1234");
             //创建执行对象
-            String sql = "select * from lz_user where username = ? ";
+            String sql = "select *  from lz_test_user where id = ?";
             pstemt = conn.prepareStatement(sql);
-            pstemt.setString(1, "19884189046");
+            pstemt.setObject(1,"14");
             //执行sql语句
             ResultSet rs = pstemt.executeQuery();
+            System.out.println("---------");
             //展开结果集
             while (rs.next()) {
                 System.out.println(rs.getString("username"));
-                System.out.println(rs.getString("password"));
             }
             rs.close();
             conn.close();
@@ -68,6 +68,9 @@ public class Test69 {
             e.printStackTrace();
         }
     }
+
+
+
 
 
     @Test
@@ -78,7 +81,7 @@ public class Test69 {
             //注册加载jdbc驱动
             Class.forName("com.mysql.jdbc.Driver");
             //打开连接
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pple_test?characterEncoding=utf-8", "ldd_biz", "pwd");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pple_test?characterEncoding=utf-8", "ldd_biz", "Hello1234");
             //创建执行对象
             String sql = "update lz_user set password = ? where username = ? ";
             pstemt = conn.prepareStatement(sql);

