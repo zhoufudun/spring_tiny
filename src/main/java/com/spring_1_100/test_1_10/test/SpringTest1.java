@@ -165,8 +165,8 @@ public class SpringTest1 {
     public void test6() {
         ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
         try {
-            Resource[] metaInfResources = resourcePatternResolver.getResources("classpath*:spring_1_100/**/spring_test4.xml");
-            //Resource[] metaInfResources = resourcePatternResolver.getResources("classpath:spring_1_100/**/spring_test4.xml");
+            //Resource[] metaInfResources = resourcePatternResolver.getResources("classpath*:spring_1_100/**/spring_test4.xml");
+            Resource[] metaInfResources = resourcePatternResolver.getResources("classpath:spring_1_100/**/spring_test4.xml");
             //Resource[] metaInfResources = resourcePatternResolver.getResources("spring_1_100/config_1_10/spring_test1/a/b/c/../../spring_test3.xml");
             System.out.println(metaInfResources.length);
             for (Resource r : metaInfResources) {

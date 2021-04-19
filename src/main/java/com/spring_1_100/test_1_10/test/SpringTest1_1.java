@@ -32,6 +32,7 @@ public class SpringTest1_1 {
 
     private static String pathSeparator = DEFAULT_PATH_SEPARATOR;
 
+
     private static final Map<String, String[]> tokenizedPatternCache = new ConcurrentHashMap<String, String[]>(256);
 
     public static final Map<String, AntPathStringMatcher> stringMatcherCache = new ConcurrentHashMap<String, AntPathStringMatcher>(256);
@@ -162,7 +163,6 @@ public class SpringTest1_1 {
             int strLength = (pathIdxEnd - pathIdxStart + 1);
             int foundIdx = -1;
 
-            strLoop:
             // 因为已经确定了有 /**/a/b/**这样的模式字符串存在, 中间2长度
             // 如果存在/q/a/b/c/d 有5个长度, 那么就要循环3次
             // 第一次匹配 /a/b => /q/a
@@ -171,6 +171,7 @@ public class SpringTest1_1 {
             // 			 /a/b => /c/d
             // 当然, 如果存在更复杂的如: /**/a/b/**/a/b/**/a/b/**, 外层的while循环就会做3次判断,
             // [/**/a/b/**/a/b/**/a/b/**,/q/q/q/a/b/q/q/q/a/b/q/q/q/a/b/q/q/q/a/b] &&  fullMatch == true
+            strLoop:
             for (int i = 0; i <= strLength - patLength; i++) {
                 for (int j = 0; j < patLength; j++) {
                     String subPat = pattDirs[pattIdxStart + j + 1];

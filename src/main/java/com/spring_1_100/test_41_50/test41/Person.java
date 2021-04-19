@@ -10,12 +10,13 @@ public class Person {
 
     public Person() {
     }
-    public Person(Number sex) {
-        this.sex = sex;
-    }
 
     public Person(Integer age) {
         this.age = age;
+    }
+
+    public Person(Number sex) {
+        this.sex = sex;
     }
 
 
