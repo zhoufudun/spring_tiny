@@ -8,7 +8,7 @@
 
     <bean id="myClient" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
         <property name="serviceUrl"  value="rmi://127.0.0.1:9999/helloRMI"></property>
-        <property name="serviceInterface" value="com.spring_1_100.test_71_80.test76_spring_rmi.service.HelloRMIService"></property>
+        <property name="serviceInterface" value="com.spring_1_100.test_71_80.test76_spring_rmi.rmi.service.HelloRMIService"></property>
     </bean>
 
 
