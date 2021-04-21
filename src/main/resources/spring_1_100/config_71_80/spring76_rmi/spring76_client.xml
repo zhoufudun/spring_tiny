@@ -5,10 +5,16 @@
 
 
 
+    <bean id="rmiSocketFactory" class="net.sf.ehcache.distribution.ConfigurableRMIClientSocketFactory">
+        <constructor-arg index="0"><value>10</value></constructor-arg>
+    </bean>
 
     <bean id="myClient" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
         <property name="serviceUrl"  value="rmi://127.0.0.1:9999/helloRMI"></property>
         <property name="serviceInterface" value="com.spring_1_100.test_71_80.test76_spring_rmi.HelloRMIService"></property>
+        <property name="lookupStubOnStartup" value="false"/>
+        <property name="refreshStubOnConnectFailure" value="true"/>
+        <property name="registryClientSocketFactory" ref="rmiSocketFactory" />
     </bean>
 
 
