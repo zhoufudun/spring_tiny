@@ -16,31 +16,22 @@
 
 package com.spring_1_100.test_71_80.test76_spring_rmi.myrmi.service;
 
-import org.springframework.remoting.support.RemoteInvocation;
-import org.springframework.util.Assert;
+import com.spring_1_100.test_71_80.test76_spring_rmi.myrmi.MyRemoteInvocation;
 
-import java.lang.reflect.InvocationTargetException;
-import java.rmi.RemoteException;
+import java.lang.reflect.Method;
 
 public class MyRmiInvocationWrapper implements MyRmiInvocationHandler {
 
     private final Object wrappedObject;
 
     public MyRmiInvocationWrapper(Object wrappedObject) {
-        Assert.notNull(wrappedObject, "Object to wrap is required");
         this.wrappedObject = wrappedObject;
     }
 
-
     @Override
-    public String getTargetInterfaceName() throws RemoteException {
-        return "xiiods";
-    }
-
-    @Override
-    public Object invoke(RemoteInvocation invocation)
-            throws RemoteException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        return invocation.invoke(this.wrappedObject);
+    public Object invoke(MyRemoteInvocation invocation) throws Exception {
+        Method method = this.wrappedObject.getClass().getMethod(invocation.getMethodName(), invocation.getParameterTypes());
+        return method.invoke(this.wrappedObject, invocation.getArguments());
     }
 
 }

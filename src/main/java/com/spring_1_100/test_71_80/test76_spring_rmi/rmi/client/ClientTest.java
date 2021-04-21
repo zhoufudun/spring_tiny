@@ -1,6 +1,6 @@
 package com.spring_1_100.test_71_80.test76_spring_rmi.rmi.client;
 
-import com.spring_1_100.test_71_80.test76_spring_rmi.rmi.service.HelloRMIService;
+import com.spring_1_100.test_71_80.test76_spring_rmi.HelloRMIService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

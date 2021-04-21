@@ -16,11 +16,9 @@
 
 package com.spring_1_100.test_71_80.test76_spring_rmi.myrmi.service;
 
-import org.springframework.remoting.support.RemoteInvocation;
+import com.spring_1_100.test_71_80.test76_spring_rmi.myrmi.MyRemoteInvocation;
 
-import java.lang.reflect.InvocationTargetException;
 import java.rmi.Remote;
-import java.rmi.RemoteException;
 
 /**
  * Interface for RMI invocation handlers instances on the server,
@@ -34,9 +32,7 @@ import java.rmi.RemoteException;
  */
 public interface MyRmiInvocationHandler extends Remote {
 
-    public String getTargetInterfaceName() throws RemoteException;
 
-    public Object invoke(RemoteInvocation invocation)
-            throws RemoteException, NoSuchMethodException, IllegalAccessException, InvocationTargetException;
+    Object invoke(MyRemoteInvocation invocation) throws Exception;
 
 }

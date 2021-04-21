@@ -6,7 +6,7 @@
 
 
     <!--服务端-->
-    <bean id="helloRMI" class="com.spring_1_100.test_71_80.test76_spring_rmi.rmi.service.HelloRMIServiceImpl"></bean>
+    <bean id="helloRMI" class="com.spring_1_100.test_71_80.test76_spring_rmi.HelloRMIServiceImpl"></bean>
 
     <!--服务类-->
     <bean id="myRMI" class="org.springframework.remoting.rmi.RmiServiceExporter">
@@ -15,7 +15,7 @@
         <!--服务名-->
         <property name="serviceName" value="helloRMI"></property>
         <!--服务接口-->
-        <property name="serviceInterface" value="com.spring_1_100.test_71_80.test76_spring_rmi.rmi.service.HelloRMIService"></property>
+        <property name="serviceInterface" value="com.spring_1_100.test_71_80.test76_spring_rmi.HelloRMIService"></property>
         <!--服务端-->
         <property name="registryPort" value="9999"></property>
         <!--其他的属性自己查看，org.springframework.remoting.RMI.RMIServiceExporter 的类，就知道支持的属性了-->
