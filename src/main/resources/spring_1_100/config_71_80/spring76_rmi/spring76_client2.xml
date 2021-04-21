@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myClient"
+          class="com.spring_1_100.test_71_80.test76_spring_rmi.HelloRMIServiceRemoteInterfaceSelectorImpl">
+        <property name="roundRobinStrategy" ref="roundRobinStrategy"></property>
+    </bean>
+
+    <bean id="roundRobinStrategy" class="com.spring_1_100.test_71_80.test76_spring_rmi.RoundRobinStrategy">
+        <constructor-arg>
+            <map key-type="java.lang.Integer" value-type="java.lang.String">
+                <entry key="500" value="myClient1"/>
+                <entry key="1000" value="myClient2"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="myClient1" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceUrl" value="rmi://127.0.0.1:9999/helloRMI"></property>
+        <property name="serviceInterface"
+                  value="com.spring_1_100.test_71_80.test76_spring_rmi.HelloRMIService"></property>
+    </bean>
+
+
+    <bean id="myClient2" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceUrl" value="rmi://127.0.0.1:8866/helloRMI"></property>
+        <property name="serviceInterface"
+                  value="com.spring_1_100.test_71_80.test76_spring_rmi.HelloRMIService"></property>
+    </bean>
+
+
+</beans>
+
+
