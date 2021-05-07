@@ -1,4 +1,4 @@
-package com.spring_1_100.test_71_80.test78_spring_rabbitmq.test1;
+package com.spring_1_100.test_71_80.test78_spring_rabbitmq.test5_waitforconfirms;
 
 import com.rabbitmq.client.*;
 import com.spring_1_100.test_71_80.test78_spring_rabbitmq.RabbitConstant;

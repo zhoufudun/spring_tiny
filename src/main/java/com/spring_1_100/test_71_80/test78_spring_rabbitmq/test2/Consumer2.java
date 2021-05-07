@@ -1,11 +1,11 @@
-package com.spring_1_100.test_71_80.test78_spring_rabbitmq.test1;
+package com.spring_1_100.test_71_80.test78_spring_rabbitmq.test2;
 
 import com.rabbitmq.client.*;
 import com.spring_1_100.test_71_80.test78_spring_rabbitmq.RabbitConstant;
 
 import java.io.IOException;
 
-public class Consumer {
+public class Consumer2 {
 
     public static void main(String[] args) throws IOException, Exception {
 
@@ -18,11 +18,9 @@ public class Consumer {
         connectionFactory.setUsername(RabbitConstant.USERNAME);
         connectionFactory.setPassword(RabbitConstant.PASSWORD);
         //3 创建连接
-        Connection connection = null;
-        connection = connectionFactory.newConnection();
+        Connection connection = connectionFactory.newConnection();
         //4 创建channel
-        Channel channel = null;
-        channel = connection.createChannel();
+        Channel channel = connection.createChannel();
         //5 创建队列Queen
         /**参数介绍：
          * queueDeclare(String queue, boolean durable, boolean exclusive, boolean autoDelete, Map<String, Object> arguments)
@@ -31,15 +29,13 @@ public class Consumer {
          * autoDelete:   当没有consumer时候是否删除队列
          * arguments：配置的基本参数
          */
-        channel.queueDeclare("hello_world",true,false,false,null);
-
-        //6 从消息队列中消费
-        /**参数介绍：
-         *basicConsume(String queue, boolean autoAck, Consumer callback)
-         * queue: 消费的队列名称
-         * autoAck：是否自动消费确认，收到消息确认
-         * callback：回调对象
-         */
+        channel.exchangeDeclare("hello-exchange",
+                BuiltinExchangeType.DIRECT,
+                true,
+                false,
+                false,null);
+        channel.queueDeclare("hello-queue",true,false,false,null);
+        channel.queueBind("hello-queue","hello-exchange","hola");
         com.rabbitmq.client.Consumer consumer = new DefaultConsumer(channel){
             //这是一个回调方法，当收到消息后会自动执行该方法
             /**
@@ -58,8 +54,9 @@ public class Consumer {
                 System.out.println("body"+new String(body,"utf-8"));
             }
         };
-        channel.basicConsume("hello_world",true,consumer);
+        channel.basicConsume("hello-queue",true,consumer);
 
-        //7 消费者不关闭连接
+        channel.close();
+        connection.close();
     }
 }
