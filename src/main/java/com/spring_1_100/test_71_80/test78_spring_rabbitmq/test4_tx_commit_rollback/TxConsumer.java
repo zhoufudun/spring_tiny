@@ -1,11 +1,11 @@
-package com.spring_1_100.test_71_80.test78_spring_rabbitmq.test4_commit_rollback;
+package com.spring_1_100.test_71_80.test78_spring_rabbitmq.test4_tx_commit_rollback;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.*;
 import com.spring_1_100.test_71_80.test78_spring_rabbitmq.RabbitConstant;
 
-public class TxSend {
+import java.io.IOException;
+
+public class TxConsumer {
 
     private static final String QUEUE_NAME = "test_queue_tx";
 
@@ -22,24 +22,21 @@ public class TxSend {
 
         // 3 创建Channel
         Connection connection = connectionFactory.newConnection();
+
         Channel channel = connection.createChannel();
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-        String msgString = "hello tx message!";
 
-        try {
+        DefaultConsumer consumer = new DefaultConsumer(channel) {
 
-            channel.txSelect();
-            channel.basicPublish("", QUEUE_NAME, null, msgString.getBytes());
-            int a = 1 / 0;
-            channel.txCommit();
-            System.out.println("send : " + msgString + " finished!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            channel.txRollback();
-            System.out.println("send message txRollback");
-        }
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
 
-        channel.close();
-        connection.close();
+                String msg = new String(body, "utf-8");
+                System.out.println("consumer: " + msg);
+            }
+        };
+
+        //监听
+        channel.basicConsume(QUEUE_NAME, true, consumer);
     }
 }
