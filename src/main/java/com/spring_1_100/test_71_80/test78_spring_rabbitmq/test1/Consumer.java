@@ -18,11 +18,10 @@ public class Consumer {
         connectionFactory.setUsername(RabbitConstant.USERNAME);
         connectionFactory.setPassword(RabbitConstant.PASSWORD);
         //3 创建连接
-        Connection connection = null;
-        connection = connectionFactory.newConnection();
+        Connection connection = connectionFactory.newConnection();
         //4 创建channel
-        Channel channel = null;
-        channel = connection.createChannel();
+        Channel channel = connection.createChannel();
+        channel.exchangeDeclare("producer-customer-test", BuiltinExchangeType.DIRECT,true);
         //5 创建队列Queen
         /**参数介绍：
          * queueDeclare(String queue, boolean durable, boolean exclusive, boolean autoDelete, Map<String, Object> arguments)
@@ -32,7 +31,7 @@ public class Consumer {
          * arguments：配置的基本参数
          */
         channel.queueDeclare("hello_world",true,false,false,null);
-
+        channel.queueBind("hello_world", "producer-customer-test", "routing_key_1");
         //6 从消息队列中消费
         /**参数介绍：
          *basicConsume(String queue, boolean autoAck, Consumer callback)
@@ -40,6 +39,8 @@ public class Consumer {
          * autoAck：是否自动消费确认，收到消息确认
          * callback：回调对象
          */
+       // boolean authAck = false;
+       // channel.basicQos(64);
         com.rabbitmq.client.Consumer consumer = new DefaultConsumer(channel){
             //这是一个回调方法，当收到消息后会自动执行该方法
             /**
@@ -56,10 +57,37 @@ public class Consumer {
                 System.out.println("getRoutingKey+"+envelope.getRoutingKey());
                 System.out.println("properties"+properties);
                 System.out.println("body"+new String(body,"utf-8"));
+                //channel.basicAck(envelope.getDeliveryTag(),false);
             }
         };
         channel.basicConsume("hello_world",true,consumer);
 
         //7 消费者不关闭连接
+
+
+     /*   GetResponse response = channel.basicGet("queue_name",false);
+        System.out.println(new String(response.getBody()));
+        channel.basicAck(response.getEnvelope().getDeliveryTag(),false);
+*/
+
+
+    connection.addShutdownListener(new ShutdownListener() {
+         @Override
+         public void shutdownCompleted(ShutdownSignalException cause) {
+             System.out.println("...己经关闭. ");
+             if(cause.isHardError()){
+                 Connection conn = (Connection)cause.getReference();
+                 if(!cause.isInitiatedByApplication()){
+                     Method reason = cause.getReason();
+                     //...
+                 }
+                 // ...
+             }else {
+                 Channel ch = (Channel) cause.getReference();
+                 // ...
+             }
+         }
+     });
+
     }
 }

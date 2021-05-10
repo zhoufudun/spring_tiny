@@ -20,7 +20,7 @@ public class Producer_mandatory {
             // 3 创建Channel
             Connection connection = connectionFactory.newConnection();
             Channel channel = connection.createChannel();
-            channel.basicQos(1);
+            channel.basicQos(1); // 设置客户端最多接收未被ack的消息个数
           channel.exchangeDeclare("mandatory-test", BuiltinExchangeType.DIRECT);
           channel.queueDeclare("hello_world",true,false,false,null);
         channel.queueBind("hello_world", "mandatory-test", "xaxa");
