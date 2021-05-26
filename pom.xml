@@ -231,6 +231,8 @@
             <version>4.12</version>
         </dependency>
 
+
+
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
@@ -276,18 +278,26 @@
             <version>1.2.5</version>
         </dependency>
 
-
         <dependency>
             <groupId>com.rabbitmq</groupId>
             <artifactId>amqp-client</artifactId>
             <version>4.1.0</version>
         </dependency>
 
+   <!--     &lt;!&ndash; https://mvnrepository.com/artifact/com.rabbitmq/amqp-client &ndash;&gt;
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.12.0</version>
+        </dependency>
+-->
         <dependency>
             <groupId>org.springframework.amqp</groupId>
             <artifactId>spring-rabbit</artifactId>
-            <version>1.4.5.RELEASE</version>
+            <version>1.6.0.RELEASE</version>
         </dependency>
+
+
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

@@ -9,7 +9,10 @@
 
 
     <rabbit:connection-factory id="connectionFactory" host="172.16.157.242" username="guest"
-                               password="guest" port="5672" virtual-host="/"/>
+                               password="guest" port="5672" virtual-host="/" />
+
+
+
 
     <rabbit:admin connection-factory="connectionFactory"/>
     <!--申明一个消息队列Queue   durable:是否持久化   exclusive: 仅创建者可以使用的私有队列，断开后自动删除
@@ -19,12 +22,13 @@
     <!-- 声明Exchange     rabbit:direct-exchange：定义exchange模式为direct -->
     <rabbit:direct-exchange name="test-mq-exchange" durable="true" auto-delete="false" id="test-mq-exchange">
         <rabbit:bindings>
-            <rabbit:binding queue="test_queue_key" key="test_queue_key"/>
+            <!--key 表示路由键-->
+            <rabbit:binding queue="test_queue_key"  key="test_queue_key"/>
         </rabbit:bindings>
     </rabbit:direct-exchange>
 
     <!-- spring template声明-->
-    <rabbit:template id="rabbitTemplate" exchange="test-mq-exchange" connection-factory="connectionFactory"
+    <rabbit:template id="rabbitTemplate" exchange="test-mq-exchange"  connection-factory="connectionFactory"
                      message-converter="jsonMessageConverter"/>
 
     <!-- 消息对象json转换类 -->

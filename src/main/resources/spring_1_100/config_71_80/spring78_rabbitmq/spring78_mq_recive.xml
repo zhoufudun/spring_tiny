@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://www.springframework.org/schema/rabbit
-    http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+    http://www.springframework.org/schema/rabbit/spring-rabbit-1.6.xsd">
 
     <description>rabbitmq 连接服务配置</description>
 
@@ -19,8 +19,9 @@
     <rabbit:queue id="test_queue_key" name="test_queue_key" durable="true" auto-delete="false" exclusive="false"/>
 
 
-    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto">
-        <rabbit:listener queues="test_queue_key" ref="queueListenter"/>
+    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto" >
+        <!--<rabbit:listener queues="test_queue_key" ref="queueListenter" response-exchange="" exclusive="" admin="" method="" queue-names=" " priority="" id="" response-routing-key=""  />-->
+        <rabbit:listener queues="test_queue_key" ref="queueListenter" response-exchange=""   />
     </rabbit:listener-container>
 
     <bean id="queueListenter" class="com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring.QueueListenter"></bean>

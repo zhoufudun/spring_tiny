@@ -2,12 +2,14 @@ package com.spring_1_100.test_41_50.test41;
 
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.MethodInvoker;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 
 public class Test41 {
 
@@ -23,6 +25,11 @@ public class Test41 {
     public void test3(){
         ApplicationContext bf = new ClassPathXmlApplicationContext("classpath:spring_1_100/config_41_50/spring41_1.xml");
         System.out.println(JSON.toJSONString(bf.getBean("person")));
+
+
+
+        String [] a = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(bf,com.spring_1_100.test_41_50.test41.Person.class,false,false);
+        System.out.println(Arrays.toString(a));
     }
 
 
