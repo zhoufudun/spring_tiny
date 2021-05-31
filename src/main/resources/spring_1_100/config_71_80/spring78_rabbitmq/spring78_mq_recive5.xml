@@ -18,18 +18,7 @@
         auto_delete: 当所有消费客户端连接断开后，是否自动删除队列-->
     <rabbit:queue id="test_queue_key" name="test_queue_key" durable="true" auto-delete="false" exclusive="false"/>
 
-
-
     <bean id="queueListenter" class="com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring.QueueListenter"></bean>
-
-<!--    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto" task-executor="" error-handler="" transaction-manager=""
-                               concurrency="" max-concurrency="" min-start-interval="" min-stop-interval="" min-consecutive-active="" min-consecutive-idle=""
-                               prefetch="" receive-timeout="" channel-transacted=""  transaction-size="" requeue-rejected="" phase=""
-                               auto-startup="" advice-chain="" recovery-interval="" recovery-back-off="" missing-queues-fatal=""
-                               mismatched-queues-fatal="" auto-declare="" declaration-retries="" failed-declaration-retry-interval=""
-                               missing-queue-retry-interval="" consumer-tag-strategy=""  idle-event-interval="">
-        <rabbit:listener queues="test_queue_key" ref="queueListenter" response-exchange="" exclusive="" admin="" method="" queue-names=" " priority="" id="" response-routing-key=""  />
-    </rabbit:listener-container>-->
 
     <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto"  >
         <rabbit:listener queues="test_queue_key" ref="queueListenter" response-exchange=""   />

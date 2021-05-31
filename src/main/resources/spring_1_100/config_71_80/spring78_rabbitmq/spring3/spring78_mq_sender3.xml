@@ -7,6 +7,7 @@
     http://www.springframework.org/schema/rabbit
     http://www.springframework.org/schema/rabbit/spring-rabbit-1.6.xsd">
 
+
     <!--spring.rabbitmq.publisher-confirms=true
     设置此属性配置可以确保消息成功发送到交换器  ,
     1.publiser-confirm模式可以确保生产者到交换器exchange消息有没有发送成功-->
@@ -17,7 +18,7 @@
      指定消息在没有被队列接收时是否强行退回还是直接丢弃 ,
      在使用上面的属性配置时通常会和mandatory属性配合一起使用：-->
     <rabbit:connection-factory id="connectionFactory" host="172.16.157.242" username="guest"
-                               password="guest" port="5672" virtual-host="/" publisher-returns="true"/>
+                               password="guest" port="5672" virtual-host="/" publisher-returns="true" />
 
 
     <rabbit:admin connection-factory="connectionFactory"/>
@@ -62,20 +63,20 @@
     <!-- 声明Exchange     rabbit:direct-exchange：定义exchange模式为direct -->
     <rabbit:direct-exchange name="test-mq-exchangeaaaaa" durable="true" auto-delete="false"
                             id="test-mq-exchangeaaaaa">
-      <!--  <rabbit:bindings>
-            <rabbit:binding queue="test_queue_key" key="test_queue_key"/>
-        </rabbit:bindings>-->
+        <!--  <rabbit:bindings>
+              <rabbit:binding queue="test_queue_key" key="test_queue_key"/>
+          </rabbit:bindings>-->
     </rabbit:direct-exchange>
 
-
-
     <bean id="mqConfirmListener"
-          class="com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring2_publisher_returns.MQReturnListener"></bean>
+          class="com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring3_mandatory_expression.MQReturnListener"></bean>
 
     <!-- spring template声明-->
     <rabbit:template id="rabbitTemplate" exchange="test-mq-exchangeaaaaa" connection-factory="connectionFactory"
-                     mandatory="true"
-                     message-converter="jsonMessageConverter" return-callback="mqConfirmListener">
+                    message-converter="jsonMessageConverter" return-callback="mqConfirmListener"
+                     mandatory-expression="messageProperties.contentType.equals('application/jsonxxx')" >
+                   <!--  mandatory-expression="body.length > 10" >-->
+
     </rabbit:template>
 
     <!-- 消息对象json转换类 -->

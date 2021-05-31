@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/rabbit
+    http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
+
+    <rabbit:connection-factory id="connectionFactory" host="172.16.157.248" username="guest"
+                               password="guest" port="5672" virtual-host="/" publisher-confirms="true"/>
+
+    <bean id="mqConfirmListener"
+          class="com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring4_retry_template.MQConfirmListener"></bean>
+
+    <bean id="simpleRetryPolicy" class="org.springframework.retry.policy.SimpleRetryPolicy">
+        <!--最大尝试次数-->
+        <property name="maxAttempts" value="5"></property>
+    </bean>
+
+    <!-- 指数退避策略 等待时间= 等待时间*倍数 ，即每一次的等待时间是上一次等待时间的n倍，
+        到达最大的等待时间之后就不在增加了，一直都是以最大的等待时间在等待。默认执行3次-->
+    <bean id="exponentialBackOffPolicy" class="org.springframework.retry.backoff.ExponentialBackOffPolicy">
+        <!--初始等待时间-->
+        <property name="initialInterval" value="1000"></property>
+        <!--时间等待倍数-->
+        <property name="multiplier" value="2"></property>
+        <!--最大等待时间-->
+        <property name="maxInterval" value="10000"></property>
+    </bean>
+
+    <bean id="retryTemplate" class="com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring4_retry_template.MyRetryTemplate">
+        <property name="backOffPolicy" ref="exponentialBackOffPolicy"></property>
+        <property name="retryPolicy" ref="simpleRetryPolicy"></property>
+    </bean>
+
+    <!-- spring template声明-->
+    <rabbit:template id="rabbitTemplate" exchange="test-mq-exchangexxxxxbbb" connection-factory="connectionFactory"
+                     mandatory="true"
+                     message-converter="jsonMessageConverter" confirm-callback="mqConfirmListener" retry-template="retryTemplate"  >
+    </rabbit:template>
+
+    <!-- 消息对象json转换类 -->
+    <bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter"/>
+
+
+</beans>
+
+
