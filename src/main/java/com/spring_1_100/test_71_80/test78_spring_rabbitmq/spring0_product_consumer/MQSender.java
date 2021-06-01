@@ -1,4 +1,4 @@
-package com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring;
+package com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring0_product_consumer;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

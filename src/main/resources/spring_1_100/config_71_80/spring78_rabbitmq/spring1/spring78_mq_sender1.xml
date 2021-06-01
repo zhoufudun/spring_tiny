@@ -36,7 +36,7 @@
 
     <!-- spring template声明-->
     <rabbit:template id="rabbitTemplate" exchange="test-mq-exchangexxxxxxxxxxxx"  connection-factory="connectionFactory" mandatory="true"
-                     message-converter="jsonMessageConverter" confirm-callback="mqConfirmListener"  >
+                     message-converter="jsonMessageConverter" confirm-callback="mqConfirmListener"    >
     </rabbit:template>
 
 

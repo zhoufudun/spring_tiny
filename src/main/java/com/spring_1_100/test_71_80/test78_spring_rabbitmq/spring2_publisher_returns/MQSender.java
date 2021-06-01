@@ -25,6 +25,8 @@ public class MQSender {
         System.out.println("++++++++发送消息++++++++++++" + JSON.toJSONString(msg));
         RabbitTemplate rabbitTemplate = (RabbitTemplate) context.getBean("rabbitTemplate");
         rabbitTemplate.convertAndSend(queue_key, msg);
+
+
     }
 
 }

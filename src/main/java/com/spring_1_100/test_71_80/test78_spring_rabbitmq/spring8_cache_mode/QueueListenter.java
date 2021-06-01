@@ -1,8 +1,7 @@
-package com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring;
+package com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring8_cache_mode;
 
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 /**
  * @author xuexiaolei
