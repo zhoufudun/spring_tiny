@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class MQReciver {
 
     public static void main(String[] args) {
-        new ClassPathXmlApplicationContext("classpath:spring_1_100/config_71_80/spring78_rabbitmq/spring78_mq_recive.xml");
+        new ClassPathXmlApplicationContext("classpath:spring_1_100/config_71_80/spring78_rabbitmq/spring5/spring78_mq_recive5.xml");
     }
 
 }

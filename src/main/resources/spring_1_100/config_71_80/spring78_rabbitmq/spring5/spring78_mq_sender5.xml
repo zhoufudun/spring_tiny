@@ -26,7 +26,7 @@
 
     <!-- spring template声明-->
     <rabbit:template id="rabbitTemplate" exchange="test-mq-exchange" connection-factory="connectionFactory"
-                     message-converter="jsonMessageConverter" channel-transacted="true" />
+                     message-converter="jsonMessageConverter" channel-transacted="false" />
 
     <!-- 消息对象json转换类 -->
     <bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter"/>

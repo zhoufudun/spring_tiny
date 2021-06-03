@@ -18,7 +18,7 @@ public class MQSender {
     public static final String queue_key = "test_queue_keybbbbbbbxxxxxx";
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring_1_100/config_71_80/spring78_rabbitmq/spring78_mq_sender4.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring_1_100/config_71_80/spring78_rabbitmq/spring4/spring78_mq_sender4.xml");
         Map<String, Object> msg = new HashMap();
         msg.put("data", "hello,rabbmitmq!");
         msg.put("time", System.currentTimeMillis());

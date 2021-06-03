@@ -49,7 +49,6 @@ public class MQSender {
         System.out.println(JSON.toJSONString(message));
         ConnectionFactory connectionFactory = (ConnectionFactory) InvokeUtils.invokeMethod(rabbitTemplate, "obtainTargetConnectionFactoryIfNecessary", expression, message);
         System.out.println("connectionFactory = " + connectionFactory);
-
         CachingConnectionFactory cachingConnectionFactory = (CachingConnectionFactory)context.getBean("connectionFactory");
         RabbitResourceHolder resourceHolder1 = ConnectionFactoryUtils.getTransactionalResourceHolder(
                 (connectionFactory != null ? connectionFactory : cachingConnectionFactory), false);
@@ -67,10 +66,9 @@ public class MQSender {
 
         ChannelProxy channelProxy2 = (ChannelProxy) channel2;
         Channel targetChannel2 = channelProxy2.getTargetChannel();
-        System.out.println(targetChannel1 == targetChannel2);
-
-
         InvokeUtils.invokeMethod(rabbitTemplate, "doSend", channel1, exchange, queue_key, message, true, null);
+        System.out.println("channel1是否等于channl2 " + (targetChannel1 == targetChannel2));
+
         channelProxy1.close();
         resourceHolder1.getConnection().close();
 
@@ -109,8 +107,9 @@ public class MQSender {
         Channel channel2 = resourceHolder2.getChannel();
         ChannelProxy channelProxy2 = (ChannelProxy) channel2;
         Channel targetChannel2 = channelProxy2.getTargetChannel();
-        System.out.println(targetChannel1 == targetChannel2);
+
         InvokeUtils.invokeMethod(rabbitTemplate, "doSend", channel1, exchange, queue_key, message, true, null);
+        System.out.println("channel1是否等于channl2 " + (targetChannel1 == targetChannel2));
 
         channel2.close();
         resourceHolder2.getConnection().close();
