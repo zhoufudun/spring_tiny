@@ -26,6 +26,6 @@ public class TransactionSevice {
         rabbitTemplate.convertAndSend(queue_key, msg);
         int i = 0;
         int j = 1;
-       int c = j / i;
+        int c = j / i;
     }
 }

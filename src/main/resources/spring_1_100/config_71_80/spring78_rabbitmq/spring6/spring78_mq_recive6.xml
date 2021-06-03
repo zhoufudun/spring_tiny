@@ -21,7 +21,7 @@
     <bean id="queueListenter" class="com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring0_product_consumer.QueueListenter"></bean>
 
     <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto"  >
-        <rabbit:listener queues="test_queue_key" ref="queueListenter" response-exchange=""   />
+        <rabbit:listener queues="test_queue_key" ref="queueListenter"  />
     </rabbit:listener-container>
 
 </beans>

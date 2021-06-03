@@ -7,7 +7,7 @@ public class MQSender {
 
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring_1_100/config_71_80/spring78_rabbitmq/spring6/spring78_mq_sender6.xml");
-        TransactionSevice transactionSevice = context.getBean(TransactionSevice.class);
+        TransactionSevice transactionSevice = (TransactionSevice)context.getBean("userService");
         transactionSevice.testTransaction();
     }
 }

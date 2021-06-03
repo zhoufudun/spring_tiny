@@ -10,7 +10,7 @@
 
     <context:annotation-config/>
     <context:component-scan
-            base-package="com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring5_transaction"></context:component-scan>
+            base-package="com.spring_1_100.test_71_80.test78_spring_rabbitmq.spring6_tx_transaction"></context:component-scan>
 
     <tx:annotation-driven transaction-manager="rabbitTransactionManager"></tx:annotation-driven>
 
@@ -31,7 +31,7 @@
 
     <!-- spring template声明-->
     <rabbit:template id="rabbitTemplate" exchange="test-mq-exchange" connection-factory="connectionFactory"
-                     message-converter="jsonMessageConverter" channel-transacted="true"/>
+                     message-converter="jsonMessageConverter" channel-transacted="true" />
 
 
     <bean id="rabbitTransactionManager" class="org.springframework.amqp.rabbit.transaction.RabbitTransactionManager">
