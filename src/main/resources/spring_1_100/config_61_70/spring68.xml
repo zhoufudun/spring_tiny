@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
-    <aop:aspectj-autoproxy ></aop:aspectj-autoproxy>
+    <aop:aspectj-autoproxy expose-proxy="true" ></aop:aspectj-autoproxy>
 
     <context:annotation-config></context:annotation-config>
 

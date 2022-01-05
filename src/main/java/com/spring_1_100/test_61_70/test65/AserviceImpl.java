@@ -10,6 +10,10 @@ public class AserviceImpl implements Aservice {
 
         System.out.println("print x=" + x + ",y="+y);
 
+        int i = 1;
+        int b = 0 ;
+        int c = i /b   ;
+
 
     }
 }

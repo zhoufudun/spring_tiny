@@ -8,7 +8,8 @@ public class Test68 {
         ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:spring_1_100/config_61_70/spring68.xml");
 
         Aservice service =(Aservice) ac.getBean("aservice");
-        service.b("quyixiao","hukaiming");
+//        service.b("quyixiao","hukaiming");
+        service.a();
 
 
 

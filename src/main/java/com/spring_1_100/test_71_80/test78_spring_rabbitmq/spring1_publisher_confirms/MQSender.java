@@ -9,11 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author xuexiaolei
+ * @author xuexiaolei 
  * @version 2017年08月22日
  */
 
 public class MQSender {
+
+    
 
     public static final String queue_key = "test_queue_keybbbbbbb";
 

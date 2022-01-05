@@ -9,7 +9,7 @@ public class Test65_2 {
     public static void main(String[] args) {
         ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:spring_1_100/config_61_70/spring65_2.xml");
 
-        AserviceImpl service = (AserviceImpl) ac.getBean("aservice");
+        AserviceImpl service = (AserviceImpl) ac.getBean(AserviceImpl.class);
         service.b("quyixiao", "hukaiming");
         System.out.println("======================");
         service.a();

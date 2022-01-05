@@ -15,7 +15,7 @@ public class AspectJTest {
 
 
     @Before("test()")
-    public void abeforeTest(JoinPoint jp) {
+    public void cbeforeTest(JoinPoint jp) {
         System.out.println("abeforeTest" + JSON.toJSONString(jp.getArgs()));
     }
 
