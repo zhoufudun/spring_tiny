@@ -13,7 +13,7 @@ public class MyThread extends Thread {
     @Override
     public void run() {
         int numInt = Integer.parseInt(num);
-        while (!this.isInterrupted() ) {
+        while (!this.isInterrupted()) {
             System.out.println("死循环中 " + Thread.currentThread().getName());
         }
     }
@@ -21,11 +21,11 @@ public class MyThread extends Thread {
     public static void main(String[] args) {
         MyThreadGroup group = new MyThreadGroup("我的线程组");
         MyThread[] myThreads = new MyThread[10];
-        for(int i = 0 ;i < myThreads.length ;i ++){
-            myThreads[i] = new MyThread(group,"线程" + (i + 1 ) ,"1");
+        for (int i = 0; i < myThreads.length; i++) {
+            myThreads[i] = new MyThread(group, "线程" + (i + 1), "1");
             myThreads[i].start();
         }
-        MyThread newT = new MyThread(group,"报错线程","a");
+        MyThread newT = new MyThread(group, "报错线程", "a");
         newT.start();
     }
 }
