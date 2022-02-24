@@ -81,14 +81,17 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
             <version>${spring-version}</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
 
 
         <dependency>
@@ -98,18 +101,11 @@
         </dependency>
 
 
-
-
-
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring-version}</version>
         </dependency>
-
-
-
 
 
         <!-- 用来做spring测试 -->
@@ -118,8 +114,6 @@
             <artifactId>spring-test</artifactId>
             <version>${spring-version}</version>
         </dependency>
-
-
 
 
         <dependency>
@@ -145,7 +139,6 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -160,7 +153,6 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-instrument</artifactId>
@@ -172,7 +164,6 @@
             <artifactId>spring-oxm</artifactId>
             <version>${spring-version}</version>
         </dependency>
-
 
 
         <dependency>
@@ -232,7 +223,6 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
@@ -284,19 +274,18 @@
             <version>4.1.0</version>
         </dependency>
 
-   <!--     &lt;!&ndash; https://mvnrepository.com/artifact/com.rabbitmq/amqp-client &ndash;&gt;
-        <dependency>
-            <groupId>com.rabbitmq</groupId>
-            <artifactId>amqp-client</artifactId>
-            <version>5.12.0</version>
-        </dependency>
--->
+        <!--     &lt;!&ndash; https://mvnrepository.com/artifact/com.rabbitmq/amqp-client &ndash;&gt;
+             <dependency>
+                 <groupId>com.rabbitmq</groupId>
+                 <artifactId>amqp-client</artifactId>
+                 <version>5.12.0</version>
+             </dependency>
+     -->
         <dependency>
             <groupId>org.springframework.amqp</groupId>
             <artifactId>spring-rabbit</artifactId>
             <version>1.6.0.RELEASE</version>
         </dependency>
-
 
 
         <dependency>
@@ -310,7 +299,6 @@
             <artifactId>javax.jms</artifactId>
             <version>3.1.2.2</version>
         </dependency>
-
 
 
         <dependency>
@@ -331,7 +319,6 @@
             <artifactId>logback-core</artifactId>
             <version>1.2.3</version>
         </dependency>
-
 
 
         <dependency>
@@ -359,9 +346,6 @@
         </dependency>
 
 
-
-
-
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>spring_jar</artifactId>
@@ -381,8 +365,6 @@
             <artifactId>my-instrument-agent</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-
 
 
         <dependency>
@@ -413,13 +395,13 @@
             <version>2.10.6</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>22.0</version>
+        </dependency>
 
     </dependencies>
-
-
-
-
 
 
     <build>
