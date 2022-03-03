@@ -28,7 +28,8 @@ public class SynchronizedTest {
         synchronizedTest.test();
 
 
+
     }
 }
 // 打印顺序
-// A  1,2   B 2,1  C 1,2 或2,1 都有可能 D 以上说法都不正确
+// A  1,2   B 2,1  C 1,2 或2,1都有可能 D 以上说法都不正确
