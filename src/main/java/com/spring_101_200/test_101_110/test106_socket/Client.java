@@ -1,6 +1,5 @@
 package com.spring_101_200.test_101_110.test106_socket;
 
-import sun.tools.java.ScannerInputReader;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

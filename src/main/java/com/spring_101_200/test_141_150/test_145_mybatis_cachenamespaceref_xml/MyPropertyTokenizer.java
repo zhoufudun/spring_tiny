@@ -1,7 +1,6 @@
 package com.spring_101_200.test_141_150.test_145_mybatis_cachenamespaceref_xml;
 
 import com.alibaba.fastjson.JSON;
-import com.sun.jdi.PathSearchingVirtualMachine;
 import org.apache.ibatis.reflection.property.PropertyTokenizer;
 import org.apache.ibatis.type.JdbcType;
 

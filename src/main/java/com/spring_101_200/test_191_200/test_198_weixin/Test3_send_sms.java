@@ -2,8 +2,6 @@ package com.spring_101_200.test_191_200.test_198_weixin;
 
 import com.alibaba.fastjson.JSON;
 import com.utils.HttpUtil;
-import freemarker.ext.servlet.AllHttpScopesHashModel;
-import sun.jvmstat.perfdata.monitor.PerfStringVariableMonitor;
 
 import java.util.HashMap;
 import java.util.Map;
